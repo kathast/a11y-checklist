@@ -625,7 +625,7 @@ function toggleTheme() {
 })();
 
 // ── Init ──────────────────────────────────────────────────────
-const savedTheme = localStorage.getItem("theme");
+const savedTheme = localStorage.getItem("theme") || "dark";
 if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
 renderAll();
 </script>
