@@ -155,36 +155,116 @@ const PHASES = [
       { id: "a2", label: "Mouse is disconnected or disabled. Keyboard only." },
       { id: "a3", label: "Zoom is at 100%. Browser at default font size." },
       { id: "a4", label: "Findings log is open with a blank row ready." },
-      { id: "a5", label: "NVDA is in Browse Mode — single-key shortcuts (H, D, K…) only work in Browse Mode. After interacting with any form field, press Escape to return. Mouse clicks do not restore Browse Mode.", hint: "Escape to return to Browse Mode" },
+      { id: "a5", label: "NVDA is in Browse Mode — single-key shortcuts (H, D, K\u2026) only work in Browse Mode. After interacting with any form field, press Escape to return. Mouse clicks do not restore Browse Mode.", hint: "Escape to return to Browse Mode" },
     ]
   },
   {
-    id: "keyboard", letter: "B", title: "Phase A — Keyboard & Focus Testing", type: "ph-keyboard", cadence: "view",
+    id: "keyboard", letter: "B", title: "Keyboard & Focus Testing", type: "ph-keyboard", cadence: "view",
     sub: "The low-hanging fruit where most blockers are found.",
     checks: [
       { id: "b1", label: "Tab order. Navigate from the top of the page to the bottom using only the Tab key. The order should be logical (top-to-bottom, left-to-right)." },
       { id: "b2", label: "Focus visible. As you tab, is there a clear visual outline showing which element is active?" },
-      { id: "b3", label: "Keyboard traps. Can you get into — and out of — every menu, modal, and form field without getting stuck?" },
+      { id: "b3", label: "Keyboard traps. Can you get into \u2014 and out of \u2014 every menu, modal, and form field without getting stuck?" },
       { id: "b4", label: "Skip links. Is there a 'Skip to Main Content' link that appears on the first Tab press?" },
     ]
   },
   {
-    id: "visual", letter: "C", title: "Phase B — Visual & Sensory Check", type: "ph-visual", cadence: "variant",
+    id: "visual", letter: "C", title: "Visual & Sensory Check", type: "ph-visual", cadence: "variant",
     checks: [
       { id: "c1", label: "Color contrast. Check text against its background. WCAG 2.1 AA requires a ratio of at least 4.5:1 for regular text and 3:1 for large text." },
-      { id: "c2", label: "Use of color. Ensure information isn't conveyed only by color (e.g., an error shouldn't just be a red box — it needs an 'Error' label or icon)." },
+      { id: "c2", label: "Use of color. Ensure information isn't conveyed only by color (e.g., an error shouldn't just be a red box \u2014 it needs an 'Error' label or icon)." },
       { id: "c3", label: "Zoom & reflow. Use Ctrl + to zoom to 400%. Does the content overlap, or does it reflow into a single column without horizontal scrolling?", hint: "Ctrl + to 400%" },
       { id: "c4", label: "Text spacing. Use a bookmarklet to increase line height and letter spacing. Does the text break or disappear?" },
     ]
   },
   {
-    id: "sr", letter: "D", title: "Phase C — Screen Reader Deep Dive", type: "ph-sr", cadence: "view",
-    sub: "Turn on your screen reader and navigate the site with your eyes closed or monitor off.",
+    id: "landmarks", letter: "D", title: "Landmarks", type: "ph-sr", cadence: "view",
     checks: [
-      { id: "d1", label: "Alt text. Do images have descriptive text? Functional images (like a search magnifying glass) should describe the action, not the appearance.", hint: "NVDA announces alt text on images" },
-      { id: "d2", label: "Headings. Use the screen reader's shortcut to jump through headings. Do they form a logical outline of the page (H1 > H2 > H3)?", hint: "H / Shift+H" },
-      { id: "d3", label: "Form labels. When you tab into an input field, does the screen reader announce what it is? (e.g., 'Email Address, edit text')", hint: "F / Shift+F" },
-      { id: "d4", label: "Dynamic content. If you click a button that opens a toast notification or updates content, does the screen reader announce that change automatically (using aria-live)?" },
+      { id: "d1", label: "Check the Elements List for landmarks.", hint: "D / Shift+D to jump forward/backward by landmark" },
+      { id: "d2", label: "Landmarks appear in a logical order and contain appropriate content." },
+      { id: "d3", label: "\u2b50 No landmarks present.", star: true },
+      { id: "d4", label: "\u2b50 Content within landmarks is not logical.", star: true },
+      { id: "d5", label: "\u2b50 Multiple landmarks of the same type have a unique name.", star: true },
+    ]
+  },
+  {
+    id: "headings", letter: "E", title: "Headings", type: "ph-sr", cadence: "view",
+    checks: [
+      { id: "e1", label: "Check the Elements List for headings.", hint: "H / Shift+H to jump forward/backward by heading" },
+      { id: "e2", label: "Headings appear at the beginning of sections and form a logical outline of the page (H1 > H2 > H3)." },
+      { id: "e3", label: "The heading markup indicates the appropriate heading level for the content." },
+      { id: "e4", label: "\u2b50 There are no headings present.", star: true },
+      { id: "e5", label: "\u2b50 Heading order is skipped.", star: true },
+      { id: "e6", label: "\u2b50 Content is improperly assigned as a heading.", star: true },
+    ]
+  },
+  {
+    id: "links", letter: "F", title: "Links", type: "ph-sr", cadence: "view",
+    checks: [
+      { id: "f1", label: "Check the Elements List for links.", hint: "K / Shift+K to jump forward/backward by link" },
+      { id: "f2", label: "Links appear in a logical order." },
+      { id: "f3", label: "Link text is unique and contextual within the surrounding content." },
+      { id: "f4", label: "\u2b50 Links are not announced as links.", star: true },
+      { id: "f5", label: "\u2b50 Things that are clickable with the mouse cannot be navigated to and/or activated with the keyboard.", star: true },
+      { id: "f6", label: "\u2b50 Link text is not unique or is not contextual within the surrounding content.", star: true },
+    ]
+  },
+  {
+    id: "forms", letter: "G", title: "Forms", type: "ph-sr", cadence: "view",
+    checks: [
+      { id: "g1", label: "Check the Elements List for form elements.", hint: "F / Shift+F (Focus Mode) or Tab / Shift+Tab (Browse Mode)" },
+      { id: "g2", label: "Form elements appear in a logical order." },
+      { id: "g3", label: "Combobox select lists can be opened with Alt+Down Arrow or Spacebar.", hint: "Alt+\u2193 or Spacebar" },
+      { id: "g4", label: "When tabbing into each field, NVDA announces label, role, required state, current value, hint/description, and error state. Any of these missing is a failure." },
+      { id: "g5", label: "Required fields announced as 'required' \u2014 not just marked with *." },
+      { id: "g6", label: "\u2b50 Cannot navigate to form elements using screen reader or keyboard.", star: true },
+      { id: "g7", label: "\u2b50 Form elements are not in a logical order.", star: true },
+      { id: "g8", label: "\u2b50 Required form elements are not announced as 'required'.", star: true },
+    ]
+  },
+  {
+    id: "errors", letter: "H", title: "Error messages", type: "ph-sr", cadence: "view",
+    checks: [
+      { id: "h1", label: "Activate error messages via Submit or inline validation." },
+      { id: "h2", label: "The error message identifies the error and informs the user of the correct remediation in an apparent and accessible manner." },
+      { id: "h3", label: "The form can be resubmitted and revalidated after correction." },
+      { id: "h4", label: "\u2b50 Errors are not automatically announced after submitting the form.", star: true },
+      { id: "h5", label: "\u2b50 The first field with an error does not get focus after submitting the form.", star: true },
+      { id: "h6", label: "\u2b50 Errors are not associated with form elements when you navigate to them.", star: true },
+      { id: "h7", label: "\u2b50 Invalid form elements are not announced as 'invalid'.", star: true },
+    ]
+  },
+  {
+    id: "tables", letter: "I", title: "Tables (if present)", type: "ph-sr", cadence: "view",
+    checks: [
+      { id: "i1", label: "Navigate between tables.", hint: "T / Shift+T" },
+      { id: "i2", label: "Navigate table content including all static and interactive elements.", hint: "Ctrl+Alt+Arrow keys" },
+      { id: "i3", label: "Table headers are identified and announced when navigating cells." },
+      { id: "i4", label: "\u2b50 Content that appears as a table is not announced as a table.", star: true },
+      { id: "i5", label: "\u2b50 Table headers are not identified.", star: true },
+    ]
+  },
+  {
+    id: "focus", letter: "J", title: "Reading order & focus", type: "ph-sr", cadence: "view",
+    checks: [
+      { id: "j1", label: "Use arrow keys to read content in a linear order.", hint: "Arrow keys" },
+      { id: "j2", label: "\u2b50 Trigger dynamic content and confirm it is announced.", star: true },
+      { id: "j3", label: "\u2b50 Activate a menu or dialog by placing focus on that element and confirm NVDA announces it.", star: true },
+      { id: "j4", label: "\u2b50 Check that visually hidden content is not read in cases where it should not be.", star: true },
+      { id: "j5", label: "All actionable elements receive focus on Tab." },
+      { id: "j6", label: "No non-actionable elements receive focus on Tab." },
+      { id: "j7", label: "\u2b50 The reading order is out of sequence.", star: true },
+      { id: "j8", label: "\u2b50 Actionable elements don't get focus when using Tab.", star: true },
+      { id: "j9", label: "\u2b50 Non-actionable elements get focus when using Tab.", star: true },
+    ]
+  },
+  {
+    id: "sr", letter: "K", title: "Screen Reader Deep Dive", type: "ph-sr", cadence: "view",
+    sub: "Navigate the site with your eyes closed or monitor off.",
+    checks: [
+      { id: "k1", label: "Alt text. Do images have descriptive text? Functional images (like a search magnifying glass) should describe the action, not the appearance.", hint: "NVDA announces alt text on images" },
+      { id: "k2", label: "Form labels. When you tab into an input field, does the screen reader announce what it is? (e.g., 'Email Address, edit text')" },
+      { id: "k3", label: "Dynamic content. If you click a button that opens a toast notification or updates content, does the screen reader announce that change automatically (using aria-live)?" },
     ]
   },
 ];
@@ -244,7 +324,7 @@ function render() {
           <div class="phase-title">${phase.title}</div>
           ${phase.sub ? `<div class="phase-sub">${phase.sub}</div>` : ''}
         </div>
-        <span class="cadence-tag ${isVariant ? 'cadence-variant' : 'cadence-view'}">${isVariant ? 'per variant' : 'per view'}</span>
+        
         <button class="copy-inline" onclick="copyPhase(event,this,'${phase.id}')">${COPY_SVG_LG}</button>
       </div>
       <div class="checks">${checksHTML}</div>
