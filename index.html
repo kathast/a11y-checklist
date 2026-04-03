@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>eJuror — Manual Accessibility Scan Checklist</title>
+<title>Accessibility Testing Guidance — Checklist</title>
 <style>
 :root {
   --bg: #ffffff;
@@ -16,7 +16,6 @@
   --text-faint: #9e9b96;
   --purple: #3c3489;
   --purple-light: #eeedfe;
-  --purple-mid: #7f77dd;
   --blue: #185fa5;
   --blue-light: #e6f1fb;
   --green: #1d9e75;
@@ -40,7 +39,6 @@
   --text-faint: #6b6966;
   --purple: #b0aaff;
   --purple-light: #2e2a58;
-  --purple-mid: #b0aaff;
   --blue: #7db8f7;
   --blue-light: #1a3352;
   --green: #4ecba0;
@@ -52,70 +50,28 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; min-height: 100vh; }
 
-/* ── App shell ── */
-.app { display: flex; min-height: 100vh; }
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+.main { flex: 1; display: flex; flex-direction: column; }
 
-/* ── Sidebar ── */
-.sidebar { width: 280px; min-width: 180px; max-width: 540px; flex-shrink: 0; background: var(--bg-soft); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow: hidden; }
-.resize-handle { width: 5px; cursor: col-resize; background: transparent; flex-shrink: 0; transition: background 0.15s; }
-.resize-handle:hover, .resize-handle.dragging { background: var(--purple-mid); }
-
-.sidebar-inner { flex: 1; overflow-y: auto; padding: 20px 0 24px; }
-
-/* Product tabs */
-.sidebar-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); padding: 0 16px 8px; }
-.product-tabs { display: flex; flex-direction: column; gap: 2px; padding: 0 10px; margin-bottom: 4px; }
-.product-tab { padding: 7px 10px; border-radius: var(--radius); cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text-muted); border: none; background: none; text-align: left; width: 100%; transition: background 0.12s, color 0.12s; }
-.product-tab:hover { background: var(--bg-muted); color: var(--text); }
-.product-tab.active { background: var(--purple-light); color: var(--purple); }
-
-/* Product progress */
-.product-progress { padding: 10px 16px 14px; }
-.product-progress-track { height: 3px; background: var(--border); border-radius: 99px; overflow: hidden; margin-top: 5px; }
-.product-progress-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.3s; }
-.product-progress-label { font-size: 11px; color: var(--text-faint); display: flex; justify-content: space-between; }
-
-/* Variant list */
-.sidebar-divider { height: 1px; background: var(--border); margin: 8px 16px; }
-.variant-list { padding: 4px 10px; display: flex; flex-direction: column; gap: 1px; }
-.variant-item { padding: 6px 10px; border-radius: var(--radius); cursor: pointer; font-size: 11px; color: var(--text-muted); font-family: var(--mono); border: none; background: none; text-align: left; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: background 0.12s, color 0.12s; line-height: 1.4; }
-.variant-item:hover { background: var(--bg-muted); color: var(--text); }
-.variant-item.active { background: var(--blue-light); color: var(--blue); font-weight: 600; }
-.variant-item.done { color: var(--green); }
-.variant-item.done::before { content: "✓  "; }
-.variant-item.in-progress::after { content: " ·"; color: var(--amber); }
-
-/* ── Main ── */
-.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-
-/* Top bar */
 .topbar { padding: 14px 40px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; background: var(--bg); position: sticky; top: 0; z-index: 10; }
-.topbar-product { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-faint); }
-.topbar-sep { color: var(--border-strong); font-size: 14px; }
-.topbar-variant { font-size: 13px; font-family: var(--mono); color: var(--text-muted); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar-title { font-size: 14px; font-weight: 600; color: var(--text-muted); flex: 1; }
 .topbar-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.icon-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 10px; cursor: pointer; font-size: 13px; color: var(--text-muted); line-height: 1; transition: background 0.12s; }
+.icon-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 10px; cursor: pointer; font-size: 14px; color: var(--text-muted); line-height: 1; transition: background 0.12s; font-family: var(--font); }
 .icon-btn:hover { background: var(--bg-muted); color: var(--text); }
 
-/* Content */
-.content { flex: 1; padding: 32px 40px 120px; max-width: 780px; }
-
-/* Variant header */
-.variant-header { margin-bottom: 28px; }
-.variant-title { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 4px; font-family: var(--mono); word-break: break-all; }
-.variant-sub { font-size: 13px; color: var(--text-muted); }
+.content { flex: 1; padding: 32px 40px 120px; max-width: 820px; margin: 0 auto; width: 100%; }
 
 /* View controls */
-.view-controls { display: flex; align-items: center; gap: 0; background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 20px; margin-bottom: 28px; }
+.view-controls { display: flex; align-items: center; background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 20px; margin-bottom: 28px; gap: 0; }
 .view-counter { display: flex; align-items: center; gap: 12px; }
-.view-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-faint); }
-.view-num { font-size: 26px; font-weight: 700; color: var(--text); min-width: 32px; text-align: center; }
+.view-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-faint); }
+.view-num { font-size: 28px; font-weight: 700; color: var(--text); min-width: 32px; text-align: center; }
 .view-nav { display: flex; gap: 4px; }
-.view-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); width: 30px; height: 30px; cursor: pointer; font-size: 16px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; transition: background 0.12s; }
+.view-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); width: 32px; height: 32px; cursor: pointer; font-size: 18px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; transition: background 0.12s; font-family: var(--font); }
 .view-btn:hover:not(:disabled) { background: var(--bg-muted); color: var(--text); }
 .view-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 .view-divider { width: 1px; background: var(--border); height: 32px; margin: 0 20px; }
-.view-note { font-size: 12px; color: var(--text-faint); line-height: 1.4; flex: 1; }
+.view-note { font-size: 13px; color: var(--text-faint); line-height: 1.5; flex: 1; }
 .view-note strong { color: var(--text-muted); font-weight: 600; }
 
 /* Phases */
@@ -124,98 +80,65 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
 .phase.all-done { border-color: var(--green); }
 .phase.all-done .phase-header { background: var(--green-light); border-bottom: none; cursor: pointer; }
 .phase.all-done .phase-letter { background: var(--green); color: white; }
-.phase-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--bg-soft); border-bottom: 1px solid var(--border); }
-.phase-letter { font-size: 10px; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.12s, color 0.12s; }
+.phase-header { display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: var(--bg-soft); border-bottom: 1px solid var(--border); }
+.phase-letter { font-size: 11px; font-weight: 700; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.12s, color 0.12s; cursor: pointer; }
 .phase-letter[data-letter]::before { content: attr(data-letter); }
 .phase-letter[data-letter]:hover::before { content: "✓"; }
 .phase-letter[data-letter]:hover { background: var(--green) !important; color: white !important; }
-.phase-title { font-size: 13px; font-weight: 600; flex: 1; }
-.phase-wcag { font-size: 11px; color: var(--text-faint); font-family: var(--mono); }
-.cadence-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+.phase-title { font-size: 15px; font-weight: 600; flex: 1; }
+.phase-sub { font-size: 13px; color: var(--text-faint); margin-top: 1px; }
+.cadence-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; flex-shrink: 0; }
 .cadence-view { background: var(--green-light); color: var(--green); }
 .cadence-variant { background: var(--purple-light); color: var(--purple); }
-.lock-btn { display: none; }
-.copy-inline { background: none; border: none; cursor: pointer; color: var(--text-faint); padding: 0 4px; transition: color 0.1s; white-space: nowrap; line-height: 1; display: inline-flex; align-items: center; margin-left: auto; flex-shrink: 0; align-self: center; }
+.copy-inline { background: none; border: none; cursor: pointer; color: var(--text-faint); padding: 0 4px; transition: color 0.1s; line-height: 1; display: inline-flex; align-items: center; margin-left: auto; flex-shrink: 0; align-self: center; }
 .copy-inline:hover { color: var(--text-muted); }
 .copy-inline.copied { color: var(--green); }
-.phase-title-wrap { display: flex; align-items: center; gap: 0; flex: 1; min-width: 0; }
 
 /* Check items */
 .checks { padding: 2px 0; }
-.check-item { display: flex; align-items: flex-start; gap: 12px; padding: 9px 14px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; user-select: none; }
+.check-item { display: flex; align-items: flex-start; gap: 12px; padding: 11px 16px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; user-select: none; }
 .check-item:last-child { border-bottom: none; }
 .check-item:hover:not(.locked) { background: var(--bg-soft); }
 .check-item.checked { background: var(--green-light); }
 .check-item.checked .check-label { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--green); }
 .check-item.locked { opacity: 0.45; cursor: not-allowed; }
-.checkbox { width: 16px; height: 16px; border: 1.5px solid var(--border-strong); border-radius: 3px; flex-shrink: 0; margin-top: 3px; display: flex; align-items: center; justify-content: center; transition: all 0.12s; }
+.checkbox { width: 18px; height: 18px; border: 1.5px solid var(--border-strong); border-radius: 3px; flex-shrink: 0; margin-top: 3px; display: flex; align-items: center; justify-content: center; transition: all 0.12s; background: var(--bg); }
 .check-item.checked .checkbox { background: var(--green); border-color: var(--green); }
-.checkbox-tick { color: white; font-size: 10px; font-weight: 700; opacity: 0; }
+.checkbox-tick { color: white; font-size: 11px; font-weight: 700; opacity: 0; }
 .check-item.checked .checkbox-tick { opacity: 1; }
-.check-label { font-size: 13px; color: var(--text); line-height: 1.5; flex: 1; }
-.nvda-hint { font-size: 11px; color: var(--blue); font-family: var(--mono); margin-top: 2px; }
+.check-label { font-size: 15px; color: var(--text); line-height: 1.55; flex: 1; }
+.check-label strong { font-weight: 600; }
+.check-hint { font-size: 12px; color: var(--blue); font-family: var(--mono); margin-top: 3px; }
 
 /* Phase colors */
 .ph-setup .phase-letter { background: var(--gray-light); color: var(--text-muted); }
-.ph-struct .phase-letter { background: var(--blue-light); color: var(--blue); }
 .ph-keyboard .phase-letter { background: var(--purple-light); color: var(--purple); }
-.ph-form .phase-letter { background: var(--purple-light); color: var(--purple); }
 .ph-visual .phase-letter { background: var(--green-light); color: var(--green); }
-.ph-timing .phase-letter { background: var(--amber-light); color: var(--amber); }
+.ph-sr .phase-letter { background: var(--blue-light); color: var(--blue); }
+.ph-doc .phase-letter { background: var(--amber-light); color: var(--amber); }
 
-/* ── Action bar ── */
+/* Action bar */
 .action-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg); border-top: 1px solid var(--border); padding: 14px 40px; display: flex; align-items: center; gap: 10px; z-index: 20; }
-.btn-primary { background: var(--purple); color: white; border: none; border-radius: var(--radius); padding: 9px 18px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font); transition: opacity 0.12s; }
+.btn-primary { background: var(--purple); color: white; border: none; border-radius: var(--radius); padding: 9px 18px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font); transition: opacity 0.12s; }
 .btn-primary:hover { opacity: 0.86; }
-.btn-green { background: var(--green); color: white; border: none; border-radius: var(--radius); padding: 9px 18px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font); transition: opacity 0.12s; }
-.btn-green:hover { opacity: 0.86; }
-.btn-ghost { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 14px; font-size: 13px; color: var(--text-muted); cursor: pointer; font-family: var(--font); transition: background 0.12s; }
+.btn-ghost { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 14px; font-size: 14px; color: var(--text-muted); cursor: pointer; font-family: var(--font); transition: background 0.12s; }
 .btn-ghost:hover { background: var(--bg-muted); color: var(--text); }
-.action-hint { font-size: 12px; color: var(--text-faint); margin-left: auto; }
-
-/* ── Empty / landing state ── */
-.landing { padding: 60px 40px; text-align: center; color: var(--text-muted); }
-.landing h2 { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-.landing p { font-size: 14px; }
 </style>
 </head>
 <body>
 <div class="app">
-
-  <!-- ── Sidebar ── -->
-  <nav class="sidebar" id="sidebar" aria-label="Navigation">
-    <div class="sidebar-inner">
-      <div class="sidebar-label">Product</div>
-      <div class="product-tabs" id="productTabs"></div>
-      <div class="product-progress" id="productProgress"></div>
-      <div class="sidebar-divider"></div>
-      <div class="sidebar-label" style="padding-top:12px;">Variants</div>
-      <div class="variant-list" id="variantList"></div>
-    </div>
-  </nav>
-  <div class="resize-handle" id="resizeHandle"></div>
-
-  <!-- ── Main ── -->
   <div class="main">
     <div class="topbar">
-      <span class="topbar-product" id="topbarProduct">—</span>
-      <span class="topbar-sep">›</span>
-      <span class="topbar-variant" id="topbarVariant">Select a variant</span>
+      <span class="topbar-title">Accessibility Testing Guidance — Checklist</span>
       <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleTheme()" title="Toggle dark mode">◐</button>
+        <button class="icon-btn" onclick="toggleTheme()">◐</button>
       </div>
     </div>
 
-    <div class="content" id="content">
-      <div class="landing">
-        <h2>Select a variant to begin</h2>
-        <p>Choose a product tab, then select a variant from the sidebar.</p>
-      </div>
-    </div>
+    <div class="content" id="content"></div>
 
-    <div class="action-bar" id="actionBar" style="display:none;">
-      <button class="btn-ghost" onclick="completeVariant()">Mark variant done ✓</button>
-      <button class="btn-ghost" onclick="clearVariant()">Reset variant</button>
+    <div class="action-bar">
+      <button class="btn-ghost" onclick="clearAll()">Reset all checks</button>
       <div style="flex:1;"></div>
       <button class="btn-ghost" onclick="prevView()">← Prev view</button>
       <button class="btn-primary" onclick="nextView()">Next view →</button>
@@ -224,500 +147,197 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
 </div>
 
 <script>
-// ── Data ──────────────────────────────────────────────────────
-const PRODUCTS = [
-  { id:"federal", label:"Federal", variants:[
-    "ejuror-federal_1-step_summons-non-responded-supplemental-fillable",
-    "ejuror-federal_2-step_qualification-non-responded",
-    "ejuror-federal_2-step_qualification-non-responded-deceased",
-    "ejuror-federal_2-step_qualification-responded-pending-disqualified",
-    "ejuror-federal_2-step_qualification-responded-pending-excused",
-    "ejuror-federal_2-step_qualification-responded-pending-exempt",
-    "ejuror-federal_2-step_qualification-responded-auto-disqualified",
-    "ejuror-federal_2-step_qualification-responded-auto-excused",
-    "ejuror-federal_2-step_qualification-responded-auto-exempt",
-    "ejuror-federal_2-step_summons-non-responded-supplemental-standard",
-    "ejuror-federal_2-step_summons-non-responded",
-    "ejuror-federal_2-step_summons-responded-status-not-allow-request",
-    "ejuror-federal_2-step_summons-responded-request-postpone",
-    "ejuror-federal_2-step_summons-responded-request-excuse",
-    "ejuror-federal_2-step_summons-responded-request-partial-excuse",
-    "ejuror-federal_2-step_summons-responded-excused",
-    "ejuror-federal_2-step_summons-responded-disqualified",
-    "ejuror-federal_2-step_summons-responded-deferred",
-    "ejuror-federal_2-step_summons-responded-partial-excuse",
-    "ejuror-federal_2-step_summons-responded-disqualified-pending-review",
-    "ejuror-federal_2-step_summons-responded-excuse-pending",
-    "ejuror-federal_2-step_summons-responded-partial-excuse-pending",
-    "ejuror-federal_2-step_summons-responded-deferral-postponement-pending",
-    "ejuror-federal_2-step_summons-responded-name-address-change-request-pending",
-  ]},
-  { id:"fjd", label:"State — FJD", variants:[
-    "ejuror-state-fjd_1-step_login-error-birth-date-not-match",
-    "ejuror-state-fjd_1-step_login-error-pool-type-mail-questionnaire",
-    "ejuror-state-fjd_1-step_non-responded",
-    "ejuror-state-fjd_1-step_non-responded-deceased",
-    "ejuror-state-fjd_1-step_responded-attendance-letter",
-    "ejuror-state-fjd_1-step_responded-deferred-date",
-    "ejuror-state-fjd_1-step_responded-disqualified",
-    "ejuror-state-fjd_1-step_responded-disqualified-deceased",
-    "ejuror-state-fjd_1-step_responded-pending-disqualified",
-    "ejuror-state-fjd_1-step_responded-postponed",
-    "ejuror-state-fjd_1-step_responded-request-postponed",
-  ]},
-  { id:"shelby", label:"State — Shelby Co", variants:[
-    "ejuror-state-shelbyco_1-step_non-responded",
-    "ejuror-state-shelbyco_1-step_responded",
-    "ejuror-state-shelbyco_1-step_responded-attendance-letter",
-    "ejuror-state-shelbyco_1-step_responded-disqualified",
-    "ejuror-state-shelbyco_1-step_responded-pending-disqualified",
-  ]},
-];
-
-// cadence: "view" resets on next view; "variant" locks after first tick
 const PHASES = [
-  { id:"setup", letter:"A", title:"Pre-scan setup", wcag:null, type:"ph-setup", cadence:"variant", checks:[
-    { id:"a1", label:"NVDA is running. Chrome is the active browser." },
-    { id:"a2", label:"Mouse is disconnected or disabled. Keyboard only." },
-    { id:"a3", label:"Zoom is at 100%. Browser at default font size." },
-    { id:"a4", label:"Findings log is open with a blank row ready." },
-    { id:"a5", label:"NVDA is in Browse Mode. Press Escape to confirm — NVDA should announce nothing. Single-key shortcuts (H, D, K…) only work in Browse Mode. After interacting with any form field, press Escape to return. Mouse clicks do not restore Browse Mode.", nvda:"Escape to return to Browse Mode" },
-  ]},
-  { id:"landmarks", letter:"B", title:"Landmarks & structure", wcag:null, type:"ph-struct", cadence:"view", checks:[
-    { id:"b1", label:"Landmark regions present: header, nav, main, footer.", nvda:"D / Shift+D to jump between landmarks" },
-    { id:"b2", label:"Landmarks appear in a logical order." },
-    { id:"b3", label:"Content within each landmark is appropriate to that region." },
-    { id:"b4", label:"Multiple landmarks of the same type each have a unique name." },
-  ]},
-  { id:"titles", letter:"C", title:"Page title", wcag:"2.4.2", type:"ph-struct", cadence:"view", checks:[
-    { id:"c1", label:"Browser tab title describes the current step — not just the site name." },
-    { id:"c2", label:"Title is unique to this step — not repeated from the previous view." },
-  ]},
-  { id:"headings", letter:"D", title:"Headings", wcag:"1.3.1", type:"ph-struct", cadence:"view", checks:[
-    { id:"d1", label:"One H1 per page — describes the current step.", nvda:"H / Shift+H" },
-    { id:"d2", label:"Headings are in logical order — no skipped levels." },
-    { id:"d3", label:"Headings form a logical outline of page content." },
-    { id:"d4", label:"No content incorrectly marked as a heading." },
-  ]},
-  { id:"keyboard", letter:"E", title:"Keyboard navigation", wcag:"2.1.1 / 2.1.2 / 2.4.7", type:"ph-keyboard", cadence:"view", checks:[
-    { id:"e1", label:"Every interactive element reachable by Tab.", nvda:"Tab / Shift+Tab" },
-    { id:"e2", label:"Tab order is logical — follows visual reading order." },
-    { id:"e3", label:"Visible focus indicator present on every focused element." },
-    { id:"e4", label:"No keyboard trap — can Tab into and out of every component." },
-    { id:"e5", label:"Skip link appears on first Tab press.", nvda:"First Tab press" },
-    { id:"e6", label:"Arrow keys work within radio groups, dropdowns, date pickers." },
-  ]},
-  { id:"links", letter:"F", title:"Links", wcag:"2.4.4", type:"ph-struct", cadence:"view", checks:[
-    { id:"f1", label:"All links announced as \"link\" by NVDA and reachable via K in Browse Mode — if K returns \"no next link\", the link may be in an iframe or dynamically injected and not indexed in the virtual buffer.", nvda:"K / Shift+K" },
-    { id:"f2", label:"Link text is descriptive — no \"click here\" without context." },
-    { id:"f3", label:"All mouse-clickable links reachable by keyboard." },
-  ]},
-  { id:"forms", letter:"G", title:"Forms", wcag:"1.3.1 / 3.3.2 / 4.1.2", type:"ph-form", cadence:"view", checks:[
-    { id:"g1", label:"Every field reachable by keyboard and announced by NVDA.", nvda:"F / Shift+F (Focus Mode)" },
-    { id:"g2", label:"When tabbing into each field, NVDA announces all of the following in order — (1) label: the field's purpose; (2) role: input type e.g. edit text, combo box, checkbox; (3) required state: \"required\" if the field is mandatory; (4) current value: if a value is already present; (5) hint/description: format instructions associated via aria-describedby e.g. MM/DD/YYYY; (6) error state: \"invalid entry\" if the field has failed validation, followed by the associated error message. Any of these missing is a failure." },
-    { id:"g3", label:"Required fields announced as \"required\" — not just marked with *." },
-    { id:"g4", label:"Form fields appear in a logical order." },
-    { id:"g5", label:"Hint text is associated with its field and read by NVDA." },
-    { id:"g6", label:"Radio groups: arrow keys move between options, Tab exits group." },
-    { id:"g7", label:"Dropdowns openable with Alt+Down Arrow or Space.", nvda:"Alt+↓ or Space" },
-  ]},
-  { id:"errors", letter:"H", title:"Error messages", wcag:"3.3.1 / 4.1.3", type:"ph-form", cadence:"view", checks:[
-    { id:"h1", label:"Submit with errors — NVDA announces the error or moves focus to first invalid field." },
-    { id:"h2", label:"Each error message associated with its field — NVDA reads it on tab." },
-    { id:"h3", label:"Error messages say what to do, not just what went wrong." },
-    { id:"h4", label:"Errors not conveyed by color alone — text label or icon present." },
-    { id:"h5", label:"Invalid fields announced as \"invalid\" by NVDA." },
-    { id:"h6", label:"Form can be corrected and resubmitted." },
-  ]},
-  { id:"tables", letter:"I", title:"Tables (if present)", wcag:"1.3.1", type:"ph-struct", cadence:"view", checks:[
-    { id:"i1", label:"Tables announced as tables by NVDA.", nvda:"T / Shift+T" },
-    { id:"i2", label:"Table headers identified and announced when navigating cells.", nvda:"Ctrl+Alt+Arrow" },
-  ]},
-  { id:"focus", letter:"J", title:"Reading order & focus", wcag:"2.4.3", type:"ph-keyboard", cadence:"view", checks:[
-    { id:"j1", label:"Arrow keys read content in logical linear order.", nvda:"Arrow keys" },
-    { id:"j2", label:"All actionable elements receive focus on Tab." },
-    { id:"j3", label:"No non-actionable elements receive focus on Tab." },
-    { id:"j4", label:"After submission, focus moves to confirmation or page H1." },
-  ]},
-  { id:"dynamic", letter:"K", title:"Dynamic content", wcag:"4.1.3", type:"ph-struct", cadence:"view", checks:[
-    { id:"k1", label:"Modal, alert, or status update triggered — NVDA announces the change." },
-    { id:"k2", label:"Modal dialogs trap focus — Tab stays inside the modal." },
-    { id:"k3", label:"Closing a modal returns focus to the triggering element." },
-  ]},
-  { id:"aria", letter:"L", title:"ARIA validity (custom components only)", wcag:"4.1.2", type:"ph-struct", cadence:"view", checks:[
-    { id:"l1", label:"Custom dropdowns announce open/closed state (aria-expanded present)." },
-    { id:"l2", label:"Custom checkboxes/radios announce checked state (aria-checked present)." },
-    { id:"l3", label:"Custom buttons announced as buttons with a readable label." },
-  ]},
-  { id:"contrast", letter:"M", title:"Color & contrast", wcag:"1.4.1 / 1.4.3", type:"ph-visual", cadence:"variant", checks:[
-    { id:"m1", label:"Body text passes 4.5:1 contrast ratio." },
-    { id:"m2", label:"Form field labels pass 4.5:1." },
-    { id:"m3", label:"Hint text and error messages pass 4.5:1." },
-    { id:"m4", label:"Button text passes 4.5:1 against button background." },
-    { id:"m5", label:"Large text (18pt+ / 14pt+ bold) passes 3:1." },
-    { id:"m6", label:"UI component borders pass 3:1." },
-    { id:"m7", label:"No information conveyed by color alone." },
-  ]},
-  { id:"resize", letter:"N", title:"Resize text (200%)", wcag:"1.4.4", type:"ph-visual", cadence:"variant", checks:[
-    { id:"n1", label:"All text readable at 200% — no clipping or truncation.", nvda:"Ctrl+Plus to 200%" },
-    { id:"n2", label:"No content overlaps at 200%." },
-    { id:"n3", label:"All functionality available at 200%." },
-  ]},
-  { id:"reflow", letter:"O", title:"Reflow (400%)", wcag:"1.4.10", type:"ph-visual", cadence:"variant", checks:[
-    { id:"o1", label:"Content reflows to single column at 400% — no horizontal scroll.", nvda:"Ctrl+Plus to 400%" },
-    { id:"o2", label:"No content lost or hidden at 400%." },
-  ]},
-  { id:"timing", letter:"P", title:"Timing adjustable", wcag:"2.2.1", type:"ph-timing", cadence:"variant", checks:[
-    { id:"p1", label:"If a session timeout exists, user is warned before it expires." },
-    { id:"p2", label:"Timeout warning announced by NVDA — not only visible on screen." },
-    { id:"p3", label:"User can extend or turn off timeout if adjustable. (Timeouts may be intentional — flag as observation.)" },
-  ]},
-  { id:"lang", letter:"Q", title:"Language of page", wcag:"3.1.1", type:"ph-visual", cadence:"variant", checks:[
-    { id:"q1", label:"<html> element has lang attribute (e.g. lang=\"en\"). View Source → Ctrl+F → \"<html\"." },
-  ]},
+  {
+    id: "setup", letter: "A", title: "Pre-scan setup", type: "ph-setup", cadence: "variant",
+    checks: [
+      { id: "a1", label: "NVDA is running. Chrome is the active browser." },
+      { id: "a2", label: "Mouse is disconnected or disabled. Keyboard only." },
+      { id: "a3", label: "Zoom is at 100%. Browser at default font size." },
+      { id: "a4", label: "Findings log is open with a blank row ready." },
+      { id: "a5", label: "NVDA is in Browse Mode — single-key shortcuts (H, D, K…) only work in Browse Mode. After interacting with any form field, press Escape to return. Mouse clicks do not restore Browse Mode.", hint: "Escape to return to Browse Mode" },
+    ]
+  },
+  {
+    id: "keyboard", letter: "B", title: "Phase A — Keyboard & Focus Testing", type: "ph-keyboard", cadence: "view",
+    sub: "The low-hanging fruit where most blockers are found.",
+    checks: [
+      { id: "b1", label: "Tab order. Navigate from the top of the page to the bottom using only the Tab key. The order should be logical (top-to-bottom, left-to-right)." },
+      { id: "b2", label: "Focus visible. As you tab, is there a clear visual outline showing which element is active?" },
+      { id: "b3", label: "Keyboard traps. Can you get into — and out of — every menu, modal, and form field without getting stuck?" },
+      { id: "b4", label: "Skip links. Is there a 'Skip to Main Content' link that appears on the first Tab press?" },
+    ]
+  },
+  {
+    id: "visual", letter: "C", title: "Phase B — Visual & Sensory Check", type: "ph-visual", cadence: "variant",
+    checks: [
+      { id: "c1", label: "Color contrast. Check text against its background. WCAG 2.1 AA requires a ratio of at least 4.5:1 for regular text and 3:1 for large text." },
+      { id: "c2", label: "Use of color. Ensure information isn't conveyed only by color (e.g., an error shouldn't just be a red box — it needs an 'Error' label or icon)." },
+      { id: "c3", label: "Zoom & reflow. Use Ctrl + to zoom to 400%. Does the content overlap, or does it reflow into a single column without horizontal scrolling?", hint: "Ctrl + to 400%" },
+      { id: "c4", label: "Text spacing. Use a bookmarklet to increase line height and letter spacing. Does the text break or disappear?" },
+    ]
+  },
+  {
+    id: "sr", letter: "D", title: "Phase C — Screen Reader Deep Dive", type: "ph-sr", cadence: "view",
+    sub: "Turn on your screen reader and navigate the site with your eyes closed or monitor off.",
+    checks: [
+      { id: "d1", label: "Alt text. Do images have descriptive text? Functional images (like a search magnifying glass) should describe the action, not the appearance.", hint: "NVDA announces alt text on images" },
+      { id: "d2", label: "Headings. Use the screen reader's shortcut to jump through headings. Do they form a logical outline of the page (H1 > H2 > H3)?", hint: "H / Shift+H" },
+      { id: "d3", label: "Form labels. When you tab into an input field, does the screen reader announce what it is? (e.g., 'Email Address, edit text')", hint: "F / Shift+F" },
+      { id: "d4", label: "Dynamic content. If you click a button that opens a toast notification or updates content, does the screen reader announce that change automatically (using aria-live)?" },
+    ]
+  },
 ];
 
-// ── State ─────────────────────────────────────────────────────
-let curProduct = 0;
-let curVariant = null; // null = no variant selected
+// ── State ──────────────────────────────────────────────────────
+const state = { checked: new Set(), locked: new Set(), view: 1 };
 
-// Per product+variant: { checked: Set, locked: Set, view: number, done: bool }
-const state = {};
-PRODUCTS.forEach(p => {
-  state[p.id] = {};
-  p.variants.forEach((_, i) => {
-    state[p.id][i] = { checked: new Set(), locked: new Set(), view: 1, done: false };
-  });
-});
+// ── Icons ──────────────────────────────────────────────────────
+const COPY_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+const COPY_SVG_LG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+const CHECK_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+const CHECK_SVG_LG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
-function getState() {
-  if (curVariant === null) return null;
-  return state[PRODUCTS[curProduct].id][curVariant];
-}
+// ── Render ──────────────────────────────────────────────────────
+function render() {
+  const s = state;
 
-// ── Render ────────────────────────────────────────────────────
-function renderAll() {
-  renderProductTabs();
-  renderProductProgress();
-  renderVariantList();
-  renderTopbar();
-  renderContent();
-  renderActionBar();
-}
-
-function renderProductTabs() {
-  document.getElementById("productTabs").innerHTML = PRODUCTS.map((p, i) =>
-    `<button class="product-tab ${i===curProduct?'active':''}" onclick="selectProduct(${i})">${p.label}</button>`
-  ).join("");
-}
-
-function renderProductProgress() {
-  const p = PRODUCTS[curProduct];
-  const done = p.variants.filter((_,i) => state[p.id][i].done).length;
-  const total = p.variants.length;
-  const pct = Math.round((done/total)*100);
-  document.getElementById("productProgress").innerHTML = `
-    <div class="product-progress-label">
-      <span>${done} of ${total} variants done</span>
-      <span>${pct}%</span>
-    </div>
-    <div class="product-progress-track">
-      <div class="product-progress-fill" style="width:${pct}%"></div>
-    </div>`;
-}
-
-function renderVariantList() {
-  const p = PRODUCTS[curProduct];
-  document.getElementById("variantList").innerHTML = p.variants.map((v, i) => {
-    const s = state[p.id][i];
-    const isActive = i === curVariant;
-    const isDone = s.done;
-    const hasChecks = s.checked.size > 0 && !isDone;
-    return `<button class="variant-item ${isActive?'active':''} ${isDone&&!isActive?'done':''} ${hasChecks&&!isActive&&!isDone?'in-progress':''}"
-      onclick="selectVariant(${i})" title="${v}">${v}</button>`;
-  }).join("");
-}
-
-function renderTopbar() {
-  const p = PRODUCTS[curProduct];
-  document.getElementById("topbarProduct").textContent = p.label;
-  document.getElementById("topbarVariant").textContent =
-    curVariant !== null ? p.variants[curVariant] : "Select a variant";
-}
-
-function renderContent() {
-  const el = document.getElementById("content");
-  if (curVariant === null) {
-    el.innerHTML = `<div class="landing"><h2>Select a variant to begin</h2><p>Choose a variant from the sidebar to start scanning.</p></div>`;
-    return;
-  }
-  const p = PRODUCTS[curProduct];
-  const s = getState();
-  const variantName = p.variants[curVariant];
-
-  // View controls
   const viewHTML = `
     <div class="view-controls">
       <div class="view-counter">
         <span class="view-label">View</span>
         <span class="view-num">${s.view}</span>
         <div class="view-nav">
-          <button class="view-btn" onclick="prevView()" ${s.view<=1?'disabled':''} title="Previous view">−</button>
-          <button class="view-btn" onclick="nextView()" title="Next view">+</button>
+          <button class="view-btn" onclick="prevView()" ${s.view <= 1 ? 'disabled' : ''}>−</button>
+          <button class="view-btn" onclick="nextView()">+</button>
         </div>
       </div>
       <div class="view-divider"></div>
       <div class="view-note">
-        <strong>Per-view checks</strong> reset on each new view.<br>
-        <strong>Per-variant checks</strong> lock after first tick and persist across all views.<br>
-        <strong>NVDA Browse Mode:</strong> single-key shortcuts (H, D, K…) only work in Browse Mode. After interacting with a form field, press <code style="font-family:var(--mono);font-size:11px;background:var(--bg-muted);padding:1px 4px;border-radius:3px;">Escape</code> to return — mouse clicks do not restore Browse Mode.
+        <strong>Per-view checks</strong> reset on each new view. <strong>Per-variant checks</strong> lock after first tick — double-click to unlock.<br>
+        NVDA Browse Mode. after a form field, press <code style="font-family:var(--mono);font-size:11px;background:var(--bg-muted);padding:1px 4px;border-radius:3px;">Escape</code> to return — mouse clicks do not restore Browse Mode.
       </div>
     </div>`;
 
-  // Phases
   const phasesHTML = PHASES.map(phase => {
     const isVariant = phase.cadence === "variant";
     const checksHTML = phase.checks.map(c => {
       const isChecked = s.checked.has(c.id);
       const isLocked = s.locked.has(c.id) && !isChecked;
-      return `<div class="check-item ${isChecked?'checked':''} ${isLocked?'locked':''}"
+      return `<div class="check-item ${isChecked ? 'checked' : ''} ${isLocked ? 'locked' : ''}"
         onclick="toggleCheck('${c.id}','${phase.cadence}')"
         ondblclick="forceUncheck('${c.id}')"
         role="checkbox" aria-checked="${isChecked}" tabindex="0"
         onkeydown="if(event.key===' '||event.key==='Enter'){toggleCheck('${c.id}','${phase.cadence}');event.preventDefault()}">
         <div class="checkbox"><span class="checkbox-tick">✓</span></div>
-        <div class="check-label">${c.label}${c.nvda?`<div class="nvda-hint">${c.nvda}</div>`:''}</div>
-        <button class="copy-inline" onclick="copyCheckText(event, this, '${c.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <div class="check-label">${c.label}${c.hint ? `<div class="check-hint">${c.hint}</div>` : ''}</div>
+        <button class="copy-inline" onclick="copyCheck(event,this,'${c.id}')">${COPY_SVG}</button>
       </div>`;
     }).join("");
-
-    const hasLocked = isVariant && phase.checks.some(c => s.locked.has(c.id));
-    const lockBtn = isVariant ? `<button class="lock-btn" onclick="toggleLock(event,'${phase.id}')" title="${hasLocked?'Unlock':'Lock'} variant checks">${hasLocked?'🔓':'🔒'}</button>` : '';
 
     const allDone = phase.checks.every(c => s.checked.has(c.id));
 
     return `<div class="phase ${phase.type} ${allDone ? 'all-done' : ''}">
-      <div class="phase-header" ${allDone ? `onclick="expandPhase(event, '${phase.id}')"` : ''}>
-        <div class="phase-letter" data-letter="${phase.letter}" onclick="toggleAllChecks(event, '${phase.id}')" title="Check / uncheck all" style="cursor:pointer;"></div>
-        <div class="phase-title-wrap">
-          <span class="phase-title">${phase.title}</span>
+      <div class="phase-header" ${allDone ? `onclick="expandPhase(event,'${phase.id}')"` : ''}>
+        <div class="phase-letter" data-letter="${phase.letter}" onclick="toggleAll(event,'${phase.id}')" title="Check / uncheck all"></div>
+        <div style="flex:1;min-width:0;">
+          <div class="phase-title">${phase.title}</div>
+          ${phase.sub ? `<div class="phase-sub">${phase.sub}</div>` : ''}
         </div>
-        ${phase.wcag?`<div class="phase-wcag">${phase.wcag}</div>`:''}
-        <span class="cadence-tag ${isVariant?'cadence-variant':'cadence-view'}">${isVariant?'per variant':'per view'}</span>
-        <button class="copy-inline" onclick="copySection(event, this, '${phase.id}')" title="Copy section as bullet list"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        <span class="cadence-tag ${isVariant ? 'cadence-variant' : 'cadence-view'}">${isVariant ? 'per variant' : 'per view'}</span>
+        <button class="copy-inline" onclick="copyPhase(event,this,'${phase.id}')">${COPY_SVG_LG}</button>
       </div>
       <div class="checks">${checksHTML}</div>
     </div>`;
   }).join("");
 
-  el.innerHTML = `
-    ${viewHTML}
-    ${phasesHTML}`;
+  document.getElementById("content").innerHTML = viewHTML + phasesHTML;
 }
 
-function renderActionBar() {
-  const bar = document.getElementById("actionBar");
-  bar.style.display = curVariant === null ? "none" : "flex";
-}
-
-// ── Interactions ──────────────────────────────────────────────
-function selectProduct(idx) {
-  curProduct = idx;
-  curVariant = null;
-  renderAll();
-}
-
-function selectVariant(idx) {
-  curVariant = idx;
-  renderAll();
-  window.scrollTo(0,0);
-}
-
-const COPY_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
-const COPY_ICON_LG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
-const CHECK_ICON = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
-const CHECK_ICON_LG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
-
+// ── Interactions ────────────────────────────────────────────────
 function expandPhase(e, phaseId) {
-  // Don't expand if clicking the copy button
-  if (e.target.closest('.copy-inline')) return;
-  const phaseEl = e.currentTarget.closest('.phase');
-  const checks = phaseEl.querySelector('.checks');
-  if (checks.style.display === 'block') {
-    checks.style.display = '';
-  } else {
-    checks.style.display = 'block';
-  }
+  if (e.target.closest('.copy-inline') || e.target.closest('.phase-letter')) return;
+  const checks = e.currentTarget.closest('.phase').querySelector('.checks');
+  checks.style.display = checks.style.display === 'block' ? '' : 'block';
 }
 
-function doCopy(text, btn, iconDefault, iconDone) {
-  const succeed = () => {
-    btn.innerHTML = iconDone;
-    btn.classList.add("copied");
-    setTimeout(() => { btn.innerHTML = iconDefault; btn.classList.remove("copied"); }, 1500);
-  };
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text).then(succeed).catch(() => fallbackCopy(text, btn, succeed));
-  } else {
-    fallbackCopy(text, btn, succeed);
-  }
+function doCopy(text, btn, dflt, done) {
+  const ok = () => { btn.innerHTML = done; btn.classList.add('copied'); setTimeout(() => { btn.innerHTML = dflt; btn.classList.remove('copied'); }, 1500); };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok).catch(() => fbCopy(text, ok));
+  else fbCopy(text, ok);
 }
-
-function fallbackCopy(text, btn, succeed) {
-  const ta = document.createElement("textarea");
-  ta.value = text;
-  ta.style.cssText = "position:fixed;opacity:0;top:0;left:0";
-  document.body.appendChild(ta);
-  ta.focus();
-  ta.select();
-  try { document.execCommand("copy"); succeed(); } catch(e) {}
+function fbCopy(text, ok) {
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); ok(); } catch(e) {}
   document.body.removeChild(ta);
 }
 
-function copySection(e, btn, phaseId) {
-  e.stopPropagation();
-  const phase = PHASES.find(ph => ph.id === phaseId);
-  const bullets = phase.checks.map(c => `• ${c.label}`).join('\n');
-  doCopy(`${phase.title}\n${bullets}`, btn, COPY_ICON_LG, CHECK_ICON_LG);
+function stripHTML(html) {
+  const d = document.createElement('div'); d.innerHTML = html; return d.textContent || d.innerText || '';
 }
 
-function copyCheckText(e, btn, checkId) {
+function copyCheck(e, btn, id) {
   e.stopPropagation();
-  const check = PHASES.flatMap(ph => ph.checks).find(c => c.id === checkId);
-  doCopy(check.label, btn, COPY_ICON, CHECK_ICON);
+  const c = PHASES.flatMap(p => p.checks).find(c => c.id === id);
+  doCopy(stripHTML(c.label), btn, COPY_SVG, CHECK_SVG);
 }
 
-function toggleAllChecks(e, phaseId) {
+function copyPhase(e, btn, id) {
   e.stopPropagation();
-  const s = getState();
-  const phase = PHASES.find(ph => ph.id === phaseId);
-  const allChecked = phase.checks.every(c => s.checked.has(c.id));
+  const ph = PHASES.find(p => p.id === id);
+  const text = `${ph.title}\n${ph.checks.map(c => `• ${stripHTML(c.label)}`).join('\n')}`;
+  doCopy(text, btn, COPY_SVG_LG, CHECK_SVG_LG);
+}
+
+function toggleAll(e, phaseId) {
+  e.stopPropagation();
+  const phase = PHASES.find(p => p.id === phaseId);
+  const allChecked = phase.checks.every(c => state.checked.has(c.id));
   phase.checks.forEach(c => {
-    if (allChecked) {
-      s.checked.delete(c.id);
-      s.locked.delete(c.id);
-    } else {
-      s.checked.add(c.id);
-      if (phase.cadence === 'variant') s.locked.add(c.id);
-    }
+    if (allChecked) { state.checked.delete(c.id); state.locked.delete(c.id); }
+    else { state.checked.add(c.id); if (phase.cadence === 'variant') state.locked.add(c.id); }
   });
-  renderContent();
-  renderActionBar();
-  renderVariantList();
+  render();
 }
 
-function forceUncheck(checkId) {
-  const s = getState();
-  s.checked.delete(checkId);
-  s.locked.delete(checkId);
-  renderContent();
-  renderActionBar();
-  renderVariantList();
+function forceUncheck(id) {
+  state.checked.delete(id); state.locked.delete(id); render();
 }
 
-function toggleCheck(checkId, cadence) {
-  const s = getState();
-  if (s.locked.has(checkId)) return; // locked = checked+locked, clicking does nothing unless unlocked
-  if (s.checked.has(checkId)) {
-    s.checked.delete(checkId);
-  } else {
-    s.checked.add(checkId);
-    if (cadence === "variant") s.locked.add(checkId);
-  }
-  renderContent();
-  renderActionBar();
-  renderVariantList();
-}
-
-function toggleLock(e, phaseId) {
-  e.stopPropagation();
-  const s = getState();
-  const phase = PHASES.find(ph=>ph.id===phaseId);
-  const hasLocked = phase.checks.some(c=>s.locked.has(c.id));
-  if (hasLocked) {
-    phase.checks.forEach(c => s.locked.delete(c.id));
-  } else {
-    phase.checks.forEach(c => { if (s.checked.has(c.id)) s.locked.add(c.id); });
-  }
-  renderContent();
+function toggleCheck(id, cadence) {
+  if (state.locked.has(id)) return;
+  if (state.checked.has(id)) { state.checked.delete(id); }
+  else { state.checked.add(id); if (cadence === 'variant') state.locked.add(id); }
+  render();
 }
 
 function nextView() {
-  const s = getState();
-  // Clear per-view checks
-  PHASES.filter(ph=>ph.cadence==="view").forEach(ph => ph.checks.forEach(c => s.checked.delete(c.id)));
-  s.view++;
-  renderContent();
-  renderActionBar();
-  window.scrollTo(0,0);
+  PHASES.filter(p => p.cadence === 'view').forEach(p => p.checks.forEach(c => state.checked.delete(c.id)));
+  state.view++; render(); window.scrollTo(0, 0);
 }
 
 function prevView() {
-  const s = getState();
-  if (s.view <= 1) return;
-  // Clear per-view checks and go back
-  PHASES.filter(ph=>ph.cadence==="view").forEach(ph => ph.checks.forEach(c => s.checked.delete(c.id)));
-  s.view--;
-  renderContent();
-  renderActionBar();
-  window.scrollTo(0,0);
+  if (state.view <= 1) return;
+  PHASES.filter(p => p.cadence === 'view').forEach(p => p.checks.forEach(c => state.checked.delete(c.id)));
+  state.view--; render(); window.scrollTo(0, 0);
 }
 
-function completeVariant() {
-  const s = getState();
-  s.done = true;
-  // Auto-advance to next undone variant
-  const p = PRODUCTS[curProduct];
-  const next = p.variants.findIndex((_,i) => i > curVariant && !state[p.id][i].done);
-  if (next !== -1) {
-    curVariant = next;
-  }
-  renderAll();
-  window.scrollTo(0,0);
-}
-
-function clearVariant() {
-  if (!confirm("Reset all checks and views for this variant?")) return;
-  const p = PRODUCTS[curProduct];
-  state[p.id][curVariant] = { checked: new Set(), locked: new Set(), view: 1, done: false };
-  renderAll();
+function clearAll() {
+  if (!confirm('Reset all checks and views?')) return;
+  state.checked.clear(); state.locked.clear(); state.view = 1; render(); window.scrollTo(0, 0);
 }
 
 function toggleTheme() {
-  const cur = document.documentElement.getAttribute("data-theme");
-  const next = cur === "dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", next);
-  localStorage.setItem("theme", next);
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
 }
 
-// ── Sidebar resize ────────────────────────────────────────────
-(function() {
-  const handle = document.getElementById("resizeHandle");
-  const sidebar = document.getElementById("sidebar");
-  let dragging = false, startX, startW;
-  handle.addEventListener("mousedown", e => {
-    dragging = true; startX = e.clientX; startW = sidebar.offsetWidth;
-    handle.classList.add("dragging");
-    document.body.style.cssText += ";cursor:col-resize;user-select:none";
-    e.preventDefault();
-  });
-  document.addEventListener("mousemove", e => {
-    if (!dragging) return;
-    sidebar.style.width = Math.min(540, Math.max(180, startW + e.clientX - startX)) + "px";
-  });
-  document.addEventListener("mouseup", () => {
-    if (!dragging) return;
-    dragging = false;
-    handle.classList.remove("dragging");
-    document.body.style.cursor = "";
-    document.body.style.userSelect = "";
-  });
-})();
-
-// ── Init ──────────────────────────────────────────────────────
-const savedTheme = localStorage.getItem("theme") || "dark";
-if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
-renderAll();
+// ── Init ───────────────────────────────────────────────────────
+document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+render();
 </script>
 </body>
 </html>
