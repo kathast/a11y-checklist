@@ -76,11 +76,14 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
 
 /* Phases */
 .phase { margin-bottom: 20px; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.phase.collapsed .checks { display: none; }
+.phase.collapsed .phase-header { border-bottom: none; }
 .phase.all-done .checks { display: none; }
 .phase.all-done { border-color: var(--green); }
-.phase.all-done .phase-header { background: var(--green-light); border-bottom: none; cursor: pointer; }
+.phase.all-done .phase-header { background: var(--green-light); border-bottom: none; }
 .phase.all-done .phase-letter { background: var(--green); color: white; }
-.phase-header { display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: var(--bg-soft); border-bottom: 1px solid var(--border); }
+.phase-header { display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: var(--bg-soft); border-bottom: 1px solid var(--border); cursor: pointer; }
+.phase-header:hover { background: var(--bg-muted); }
 .phase-letter { font-size: 11px; font-weight: 700; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.12s, color 0.12s; cursor: pointer; }
 .phase-letter[data-letter]::before { content: attr(data-letter); }
 .phase-letter[data-letter]:hover::before { content: "✓"; }
@@ -109,6 +112,11 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
 .check-label { font-size: 15px; color: var(--text); line-height: 1.55; flex: 1; }
 .check-label strong { font-weight: 600; }
 .check-hint { font-size: 12px; color: var(--blue); font-family: var(--mono); margin-top: 3px; }
+.la-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+.la-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; color: var(--text-muted); background: var(--bg-muted); border: 1px solid var(--border); border-radius: 99px; padding: 2px 9px 2px 7px; cursor: pointer; transition: background 0.1s, color 0.1s; line-height: 1.4; font-family: var(--font); }
+.la-chip:hover { background: var(--border); color: var(--text); }
+.la-chip.copied { color: var(--green); border-color: var(--green); background: var(--green-light); }
+.la-chip svg { flex-shrink: 0; }
 
 /* Phase colors */
 .ph-setup .phase-letter { background: var(--gray-light); color: var(--text-muted); }
@@ -155,83 +163,80 @@ const PHASES = [
       { id: "a2", label: "Mouse is disconnected or disabled. Keyboard only." },
       { id: "a3", label: "Zoom is at 100%. Browser at default font size." },
       { id: "a4", label: "Findings log is open with a blank row ready." },
-      { id: "a5", label: "NVDA is in Browse Mode — single-key shortcuts (H, D, K\u2026) only work in Browse Mode. After interacting with any form field, press Escape to return. Mouse clicks do not restore Browse Mode.", hint: "Escape to return to Browse Mode" },
+      { id: "a5", label: "NVDA is in Browse Mode \u2014 only single-key shortcuts (H, D, K\u2026) will work. After interacting with a field, press Escape to return \u2014 clicks won't work.", hint: "Escape to return to Browse Mode" },
     ]
   },
   {
     id: "keyboard", letter: "B", title: "Keyboard & Focus Testing", type: "ph-keyboard", cadence: "view",
-    sub: "The low-hanging fruit where most blockers are found.",
     checks: [
-      { id: "b1", label: "Tab order. Navigate from the top of the page to the bottom using only the Tab key. The order should be logical (top-to-bottom, left-to-right)." },
-      { id: "b2", label: "Focus visible. As you tab, is there a clear visual outline showing which element is active?" },
-      { id: "b3", label: "Keyboard traps. Can you get into \u2014 and out of \u2014 every menu, modal, and form field without getting stuck?" },
-      { id: "b4", label: "Skip links. Is there a 'Skip to Main Content' link that appears on the first Tab press?" },
+      { id: "b1", label: "Tab order. Navigate from the top of the page to the bottom using only the Tab key. The order should be logical (top-to-bottom, left-to-right).", la: ["Ensure all interactive functionality is operable with the keyboard", "Ensure the focus order of interactive elements on the page is logical"] },
+      { id: "b2", label: "Focus visible. As you tab, is there a clear visual outline showing which element is active?", la: ["Ensure keyboard focus is indicated visually"] },
+      { id: "b3", label: "Keyboard traps. Can you get into \u2014 and out of \u2014 every menu, modal, and form field without getting stuck?", la: ["Ensure keyboard focus is not trapped"] },
+      { id: "b4", label: "Skip links. Is there a 'Skip to Main Content' link that appears on the first Tab press?", la: ["Provide a mechanism for skipping past repetitive content"] },
     ]
   },
   {
     id: "visual", letter: "C", title: "Visual & Sensory Check", type: "ph-visual", cadence: "variant",
     checks: [
-      { id: "c1", label: "Color contrast. Check text against its background. WCAG 2.1 AA requires a ratio of at least 4.5:1 for regular text and 3:1 for large text." },
-      { id: "c2", label: "Use of color. Ensure information isn't conveyed only by color (e.g., an error shouldn't just be a red box \u2014 it needs an 'Error' label or icon)." },
-      { id: "c3", label: "Zoom & reflow. Use Ctrl + to zoom to 400%. Does the content overlap, or does it reflow into a single column without horizontal scrolling?", hint: "Ctrl + to 400%" },
-      { id: "c4", label: "Text spacing. Use a bookmarklet to increase line height and letter spacing. Does the text break or disappear?" },
+      { id: "c1", label: "Color contrast. Check text against its background. WCAG 2.1 AA requires a ratio of at least 4.5:1 for regular text and 3:1 for large text.", la: ["Ensure text and images of text provide sufficient contrast", "Ensure active user interface components have sufficient contrast"] },
+      { id: "c2", label: "Use of color. Ensure information isn't conveyed only by color (e.g., an error shouldn't just be a red box \u2014 it needs an 'Error' label or icon).", la: ["Ensure color is not the sole means of communicating information"] },
+      { id: "c3a", label: "\u2b50 Confirm text can be resized to 200% without content clipping, horizontal scrolling, or loss of functionality.", hint: "Ctrl + to 200%", la: ["Ensure text can be resized to 200% without loss of content or functionality"] },
+      { id: "c3b", label: "\u2b50 Confirm content reflows to a single column at 400% without horizontal scrolling.", hint: "Ctrl + to 400%", la: ["Ensure pages reflow without requiring two-dimensional scrolling without loss of content or functionality"] },
+      { id: "c4", label: "Text spacing. Use a bookmarklet to increase line height and letter spacing. Does the text break or disappear?", la: ["Ensure that content and functionality is available when the user overrides text spacing properties"] },
     ]
   },
   {
     id: "landmarks", letter: "D", title: "Landmarks", type: "ph-sr", cadence: "view",
     checks: [
-      { id: "d1", label: "Check the Elements List for landmarks.", hint: "D / Shift+D to jump forward/backward by landmark" },
-      { id: "d2", label: "Landmarks appear in a logical order and contain appropriate content." },
-      { id: "d3", label: "\u2b50 No landmarks present.", star: true },
-      { id: "d4", label: "\u2b50 Content within landmarks is not logical.", star: true },
-      { id: "d5", label: "\u2b50 Multiple landmarks of the same type have a unique name.", star: true },
+      { id: "d1", label: "Open NVDA's Elements List and check for landmark regions.", hint: "Insert+F7 to open Elements List" },
+      { id: "d2", label: "Confirm landmarks are present, appear in a logical order, and contain appropriate content.", la: ["Ensure landmark regions are present and identify the structure of the page"] },
+      { id: "d5", label: "\u2b50 Confirm multiple landmarks of the same type each have a unique name." },
+      { id: "d6", label: "Alt text. Do images have descriptive text? Functional images (like a search magnifying glass) should describe the action, not the appearance.", hint: "NVDA announces alt text on images", la: ["Provide alternative text for images", "Ensure images provide informative alternative text"] },
     ]
   },
   {
     id: "headings", letter: "E", title: "Headings", type: "ph-sr", cadence: "view",
     checks: [
-      { id: "e1", label: "Check the Elements List for headings.", hint: "H / Shift+H to jump forward/backward by heading" },
-      { id: "e2", label: "Headings appear at the beginning of sections and form a logical outline of the page (H1 > H2 > H3)." },
-      { id: "e3", label: "The heading markup indicates the appropriate heading level for the content." },
-      { id: "e4", label: "\u2b50 There are no headings present.", star: true },
-      { id: "e5", label: "\u2b50 Heading order is skipped.", star: true },
-      { id: "e6", label: "\u2b50 Content is improperly assigned as a heading.", star: true },
+      { id: "e1", label: "Open NVDA's Elements List and check for headings.", hint: "Insert+F7 to open Elements List, then select Headings" },
+      { id: "e2", label: "Headings appear at the beginning of sections and form a logical outline of the page (H1 > H2 > H3).", la: ["Ensure headings and labels are descriptive and unique"] },
+      { id: "e3", label: "The heading markup indicates the appropriate heading level for the content.", la: ["Ensure heading level matches the heading's visual importance/level"] },
+      { id: "e4", label: "\u2b50 Confirm headings are present.", la: ["Ensure headings are present and identify the structure of the page"] },
+      { id: "e5", label: "\u2b50 Confirm heading order is not skipped." },
+      { id: "e6", label: "\u2b50 Confirm no content is improperly assigned as a heading.", la: ["Avoid unnecessary use of heading elements", "Avoid the use of implicit headings"] },
     ]
   },
   {
     id: "links", letter: "F", title: "Links", type: "ph-sr", cadence: "view",
     checks: [
-      { id: "f1", label: "Check the Elements List for links.", hint: "K / Shift+K to jump forward/backward by link" },
+      { id: "f1", label: "Open NVDA's Elements List and check for links.", hint: "Insert+F7 to open Elements List, then select Links" },
       { id: "f2", label: "Links appear in a logical order." },
-      { id: "f3", label: "Link text is unique and contextual within the surrounding content." },
-      { id: "f4", label: "\u2b50 Links are not announced as links.", star: true },
-      { id: "f5", label: "\u2b50 Things that are clickable with the mouse cannot be navigated to and/or activated with the keyboard.", star: true },
-      { id: "f6", label: "\u2b50 Link text is not unique or is not contextual within the surrounding content.", star: true },
+      { id: "f3", label: "Link text is unique and contextual within the surrounding content.", la: ["Ensure link text is meaningful within context"] },
+      { id: "f4", label: "\u2b50 Confirm all links are announced as links by NVDA and reachable via K in Browse Mode.", la: ["Ensure links are announced as links by assistive technology", "Ensure links are accessible via NVDA link navigation in Browse Mode"] },
+      { id: "f5", label: "\u2b50 Confirm all mouse-clickable elements can also be navigated to and activated with the keyboard.", la: ["Ensure all interactive functionality is operable with the keyboard"] },
     ]
   },
   {
     id: "forms", letter: "G", title: "Forms", type: "ph-sr", cadence: "view",
     checks: [
-      { id: "g1", label: "Check the Elements List for form elements.", hint: "F / Shift+F (Focus Mode) or Tab / Shift+Tab (Browse Mode)" },
-      { id: "g2", label: "Form elements appear in a logical order." },
+      { id: "g1", label: "Open NVDA's Elements List and check for form elements.", hint: "Insert+F7 to open Elements List, then select Form fields" },
+      { id: "g1b", label: "\u2b50 Confirm that when a field receives focus, NVDA announces only that field — not the full page from the top.", la: ["Ensure focus on form fields does not trigger a full page read by assistive technology"] },
+      { id: "g2", label: "Form elements appear in a logical order.", la: ["Provide fieldsets for groups of form controls"] },
       { id: "g3", label: "Combobox select lists can be opened with Alt+Down Arrow or Spacebar.", hint: "Alt+\u2193 or Spacebar" },
-      { id: "g4", label: "When tabbing into each field, NVDA announces label, role, required state, current value, hint/description, and error state. Any of these missing is a failure." },
-      { id: "g5", label: "Required fields announced as 'required' \u2014 not just marked with *." },
-      { id: "g6", label: "\u2b50 Cannot navigate to form elements using screen reader or keyboard.", star: true },
-      { id: "g7", label: "\u2b50 Form elements are not in a logical order.", star: true },
-      { id: "g8", label: "\u2b50 Required form elements are not announced as 'required'.", star: true },
+      { id: "g4", label: "When tabbing into each field, NVDA announces label, role, required state, current value, hint/description, and error state. Any of these missing is a failure.", la: ["Provide visual labels or instructions for user input", "Ensure the visible text label for a control is included in the control's accessible name", "Ensure custom controls provide proper textual name, role, and state information"] },
+      { id: "g5", label: "Required fields announced as 'required' \u2014 not just marked with *.", la: ["Ensure required form fields are announced as required by assistive technology"] },
+      { id: "g6", label: "\u2b50 Confirm all form elements are navigable using the screen reader and keyboard.", la: ["Ensure custom controls are keyboard accessible"] },
     ]
   },
   {
     id: "errors", letter: "H", title: "Error messages", type: "ph-sr", cadence: "view",
     checks: [
-      { id: "h1", label: "Activate error messages via Submit or inline validation." },
-      { id: "h2", label: "The error message identifies the error and informs the user of the correct remediation in an apparent and accessible manner." },
+      { id: "h1", label: "Activate error messages via Submit or inline validation.", la: ["Provide a clear indication of fields in error for information that is submitted"] },
+      { id: "h2", label: "The error message identifies the error and informs the user of the correct remediation in an apparent and accessible manner.", la: ["Ensure error messages provide guidance on how to correct the error"] },
       { id: "h3", label: "The form can be resubmitted and revalidated after correction." },
-      { id: "h4", label: "\u2b50 Errors are not automatically announced after submitting the form.", star: true },
-      { id: "h5", label: "\u2b50 The first field with an error does not get focus after submitting the form.", star: true },
-      { id: "h6", label: "\u2b50 Errors are not associated with form elements when you navigate to them.", star: true },
-      { id: "h7", label: "\u2b50 Invalid form elements are not announced as 'invalid'.", star: true },
+      { id: "h4", label: "\u2b50 Confirm errors are automatically announced after submitting the form." },
+      { id: "h5", label: "\u2b50 Confirm the first field with an error receives focus after form submission." },
+      { id: "h6", label: "\u2b50 Confirm errors are associated with their form elements when navigating to them.", la: ["Ensure form field constraints and errors are associated with their corresponding field"] },
+      { id: "h7", label: "\u2b50 Confirm invalid form elements are announced as 'invalid' by NVDA." },
     ]
   },
   {
@@ -239,38 +244,29 @@ const PHASES = [
     checks: [
       { id: "i1", label: "Navigate between tables.", hint: "T / Shift+T" },
       { id: "i2", label: "Navigate table content including all static and interactive elements.", hint: "Ctrl+Alt+Arrow keys" },
-      { id: "i3", label: "Table headers are identified and announced when navigating cells." },
-      { id: "i4", label: "\u2b50 Content that appears as a table is not announced as a table.", star: true },
-      { id: "i5", label: "\u2b50 Table headers are not identified.", star: true },
+      { id: "i3", label: "Table headers are identified and announced when navigating cells.", la: ["Ensure data table headers are properly identified"] },
+      { id: "i4", label: "\u2b50 Confirm content that appears as a table is announced as a table by NVDA.", la: ["Ensure data tables are formatted using table elements"] },
+      { id: "i4b", label: "\u2b50 Confirm NVDA does not announce a table where no table is visually present.", la: ["Ensure table markup is not applied to content that is not a data table"] },
+      { id: "i5", label: "\u2b50 Confirm table headers are identified." },
     ]
   },
   {
     id: "focus", letter: "J", title: "Reading order & focus", type: "ph-sr", cadence: "view",
     checks: [
-      { id: "j1", label: "Use arrow keys to read content in a linear order.", hint: "Arrow keys" },
-      { id: "j2", label: "\u2b50 Trigger dynamic content and confirm it is announced.", star: true },
-      { id: "j3", label: "\u2b50 Activate a menu or dialog by placing focus on that element and confirm NVDA announces it.", star: true },
-      { id: "j4", label: "\u2b50 Check that visually hidden content is not read in cases where it should not be.", star: true },
+      { id: "j1", label: "Use arrow keys to read content in a linear order.", hint: "Arrow keys", la: ["Ensure that the reading order of content is logical"] },
+      { id: "j1b", label: "\u2b50 Confirm that when a new page loads after form submission, focus is set to the top of the page so NVDA begins reading from the beginning.", la: ["Ensure focus is set to the top of the page when a new page loads after form submission"] },
+      { id: "j3", label: "\u2b50 Activate a menu or dialog by placing focus on that element and confirm NVDA announces it." },
+      { id: "j4", label: "\u2b50 Confirm visually hidden content is not read by NVDA when it should not be.", la: ["Ensure content that is intended to be hidden from all users is not rendered by assistive technology"] },
       { id: "j5", label: "All actionable elements receive focus on Tab." },
-      { id: "j6", label: "No non-actionable elements receive focus on Tab." },
-      { id: "j7", label: "\u2b50 The reading order is out of sequence.", star: true },
-      { id: "j8", label: "\u2b50 Actionable elements don't get focus when using Tab.", star: true },
-      { id: "j9", label: "\u2b50 Non-actionable elements get focus when using Tab.", star: true },
-    ]
-  },
-  {
-    id: "sr", letter: "K", title: "Screen Reader Deep Dive", type: "ph-sr", cadence: "view",
-    sub: "Navigate the site with your eyes closed or monitor off.",
-    checks: [
-      { id: "k1", label: "Alt text. Do images have descriptive text? Functional images (like a search magnifying glass) should describe the action, not the appearance.", hint: "NVDA announces alt text on images" },
-      { id: "k2", label: "Form labels. When you tab into an input field, does the screen reader announce what it is? (e.g., 'Email Address, edit text')" },
-      { id: "k3", label: "Dynamic content. If you click a button that opens a toast notification or updates content, does the screen reader announce that change automatically (using aria-live)?" },
+      { id: "j6", label: "No non-actionable elements receive focus on Tab.", la: ["Avoid placing non-interactive elements in the focus order"] },
+      { id: "j7", label: "\u2b50 Confirm the reading order is logical and in sequence." },
+      { id: "k3", label: "Dynamic content. If you click a button that opens a toast notification or updates content, does the screen reader announce that change automatically (using aria-live)?", la: ["Ensure content updates define focus updates appropriately", "Ensure that status messages can be determined programmatically without receiving focus", "Indicate live regions for dynamically changing content"] },
     ]
   },
 ];
 
 // ── State ──────────────────────────────────────────────────────
-const state = { checked: new Set(), locked: new Set(), view: 1 };
+const state = { checked: new Set(), locked: new Set(), view: 1, expanded: new Set() };
 
 // ── Icons ──────────────────────────────────────────────────────
 const COPY_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
@@ -301,6 +297,7 @@ function render() {
 
   const phasesHTML = PHASES.map(phase => {
     const isVariant = phase.cadence === "variant";
+    const isCollapsed = !state.expanded.has(phase.id);
     const checksHTML = phase.checks.map(c => {
       const isChecked = s.checked.has(c.id);
       const isLocked = s.locked.has(c.id) && !isChecked;
@@ -310,21 +307,20 @@ function render() {
         role="checkbox" aria-checked="${isChecked}" tabindex="0"
         onkeydown="if(event.key===' '||event.key==='Enter'){toggleCheck('${c.id}','${phase.cadence}');event.preventDefault()}">
         <div class="checkbox"><span class="checkbox-tick">✓</span></div>
-        <div class="check-label">${c.label}${c.hint ? `<div class="check-hint">${c.hint}</div>` : ''}</div>
+        <div class="check-label">${c.label}${c.hint ? `<div class="check-hint">${c.hint}</div>` : ''}${c.la ? `<div class="la-chips">${c.la.map((s,i) => `<button class="la-chip" onclick="copyChip(event,this,'${c.id}-la-${i}')" data-text="${s.replace(/'/g,'&#39;')}">${COPY_SVG} ${s}</button>`).join('')}</div>` : ''}</div>
         <button class="copy-inline" onclick="copyCheck(event,this,'${c.id}')">${COPY_SVG}</button>
       </div>`;
     }).join("");
 
     const allDone = phase.checks.every(c => s.checked.has(c.id));
 
-    return `<div class="phase ${phase.type} ${allDone ? 'all-done' : ''}">
-      <div class="phase-header" ${allDone ? `onclick="expandPhase(event,'${phase.id}')"` : ''}>
+    return `<div class="phase ${phase.type} ${allDone ? 'all-done' : ''} ${isCollapsed ? 'collapsed' : ''}">
+      <div class="phase-header" onclick="togglePhase(event,'${phase.id}')">
         <div class="phase-letter" data-letter="${phase.letter}" onclick="toggleAll(event,'${phase.id}')" title="Check / uncheck all"></div>
         <div style="flex:1;min-width:0;">
           <div class="phase-title">${phase.title}</div>
           ${phase.sub ? `<div class="phase-sub">${phase.sub}</div>` : ''}
         </div>
-        
         <button class="copy-inline" onclick="copyPhase(event,this,'${phase.id}')">${COPY_SVG_LG}</button>
       </div>
       <div class="checks">${checksHTML}</div>
@@ -335,10 +331,11 @@ function render() {
 }
 
 // ── Interactions ────────────────────────────────────────────────
-function expandPhase(e, phaseId) {
+function togglePhase(e, phaseId) {
   if (e.target.closest('.copy-inline') || e.target.closest('.phase-letter')) return;
-  const checks = e.currentTarget.closest('.phase').querySelector('.checks');
-  checks.style.display = checks.style.display === 'block' ? '' : 'block';
+  if (state.expanded.has(phaseId)) { state.expanded.delete(phaseId); }
+  else { state.expanded.add(phaseId); }
+  render();
 }
 
 function doCopy(text, btn, dflt, done) {
@@ -356,6 +353,19 @@ function fbCopy(text, ok) {
 
 function stripHTML(html) {
   const d = document.createElement('div'); d.innerHTML = html; return d.textContent || d.innerText || '';
+}
+
+function copyChip(e, btn, id) {
+  e.stopPropagation();
+  const text = btn.getAttribute('data-text');
+  const ok = () => {
+    const orig = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = `${CHECK_SVG} ${text}`;
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 1500);
+  };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok).catch(() => fbCopy(text, ok));
+  else fbCopy(text, ok);
 }
 
 function copyCheck(e, btn, id) {
@@ -406,7 +416,7 @@ function prevView() {
 
 function clearAll() {
   if (!confirm('Reset all checks and views?')) return;
-  state.checked.clear(); state.locked.clear(); state.view = 1; render(); window.scrollTo(0, 0);
+  state.checked.clear(); state.locked.clear(); state.view = 1; state.expanded.clear(); render(); window.scrollTo(0, 0);
 }
 
 function toggleTheme() {
