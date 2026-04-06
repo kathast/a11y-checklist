@@ -193,7 +193,7 @@ const PHASES = [
     id: "landmarks", letter: "D", title: "Landmarks", type: "ph-sr", cadence: "view",
     checks: [
       { id: "d1", label: "Open NVDA's Elements List and check for landmark regions. Confirm landmarks are present, appear in a logical order, contain appropriate content, and that multiple landmarks of the same type each have a unique name.", hint: "Insert+Fn+F7 \u2192 Landmarks", la: ["Ensure landmark regions are present and identify the structure of the page"] },
-      { id: "d6", label: "Navigate to each image. All images require an alt attribute. Informative images should announce meaningful text; decorative images should be skipped, i.e. <code>alt=&quot;&quot;</code>. Without it, NVDA announces the filename.", hint: "NVDA announces alt text when focus lands on an image", la: ["Provide alternative text for images", "Ensure images provide informative alternative text", "Ensure all images have an alt attribute, including decorative images"] },
+      { id: "d6", label: "Navigate to each image. All images require an alt attribute. Informative images should announce meaningful text; decorative images should be skipped, i.e. <code>alt=&quot;&quot;</code>. Without it, NVDA announces the filename.", hint: "NVDA announces alt text when focus lands on an image", la: ["Ensure all images have an alt attribute, including decorative images", "Provide alternative text for meaningful images", "Ensure images provide informative alternative text"] },
     ]
   },
   {
