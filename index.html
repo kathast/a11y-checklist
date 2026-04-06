@@ -199,12 +199,10 @@ const PHASES = [
   {
     id: "headings", letter: "E", title: "Headings", type: "ph-sr", cadence: "view",
     checks: [
-      { id: "e1", label: "Open NVDA's Elements List and check for headings.", hint: "Insert+Fn+F7 to open Elements List, then select Headings" },
-      { id: "e2", label: "Headings appear at the beginning of sections and form a logical outline of the page (H1 > H2 > H3).", la: ["Ensure headings and labels are descriptive and unique"] },
-      { id: "e3", label: "The heading markup indicates the appropriate heading level for the content.", la: ["Ensure heading level matches the heading's visual importance/level"] },
-      { id: "e4", label: "\u2b50 Confirm headings are present.", la: ["Ensure headings are present and identify the structure of the page"] },
-      { id: "e5", label: "\u2b50 Confirm heading order is not skipped." },
-      { id: "e6", label: "\u2b50 Confirm no content is improperly assigned as a heading.", la: ["Avoid unnecessary use of heading elements", "Avoid the use of implicit headings"] },
+      { id: "e1", label: "Open NVDA's Elements List and confirm headings are present.", hint: "Insert+Fn+F7 to open Elements List, then select Headings", la: ["Ensure headings are present"] },
+      { id: "e2", label: "Headings form a logical outline (H1 > H2 > H3), with no skipped levels, and each heading's level matches its visual importance.", la: ["Ensure headings and labels are descriptive and unique", "Ensure heading level matches the heading's visual importance/level"] },
+      { id: "e6", label: "No element is coded as a heading (<code>&lt;h1&gt;</code>\u2013<code>&lt;h6&gt;</code>) unless it functions as one visually and structurally.", la: ["Avoid unnecessary use of heading elements"] },
+      { id: "e6b", label: "No content that appears visually as a heading is coded as plain text (<code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;p&gt;</code>).", la: ["Avoid the use of implicit headings"] },
     ]
   },
   {
