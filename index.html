@@ -216,7 +216,7 @@ const PHASES = [
   {
     id: "forms", letter: "G", title: "Forms", type: "ph-sr", cadence: "view",
     checks: [
-      { id: "g1", label: "Open NVDA's Elements List and confirm form elements are present and appear in a logical order.", hint: "Insert+Fn+F7 to open Elements List, then select Form fields", la: ["Provide fieldsets for groups of form controls"] },
+      { id: "g1", label: "Open NVDA's Elements List and confirm form elements are present and appear in a logical order.", hint: "Insert+Fn+F7 to open Elements List, then select Form fields", la: ["Ensure form elements are present on the page", "Ensure form elements appear in a logical order", "Provide fieldsets for groups of form controls"] },
       { id: "g1b", label: "When a field receives focus, NVDA announces only that field — not the full page from the top.", la: ["Ensure focus on form fields does not trigger a full page read by assistive technology"] },
       { id: "g3", label: "Combobox select lists can be opened with Alt+Down Arrow or Spacebar.", hint: "Alt+\u2193 or Spacebar" },
       { id: "g4", label: "When tabbing into each field, NVDA announces label, role, required state, current value, hint/description, and error state. Any of these missing is a failure.", la: ["Provide visual labels or instructions for user input", "Ensure the visible text label for a control is included in the control's accessible name", "Ensure custom controls provide proper textual name, role, and state information"] },
