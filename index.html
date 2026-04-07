@@ -175,16 +175,16 @@ const PHASES = [
     checks: [
       { id: "c1", label: "Color contrast. Check text against its background. WCAG 2.1 AA requires a ratio of at least 4.5:1 for regular text and 3:1 for large text.", la: ["Ensure text and images of text provide sufficient contrast", "Ensure active user interface components have sufficient contrast"] },
       { id: "c2", label: "Use of color. Ensure information isn\u2019t conveyed only by color (e.g., an error shouldn\u2019t just be a red box \u2014 it needs an \u2018Error\u2019 label or icon).", la: ["Ensure color is not the sole means of communicating information"] },
-      { id: "c3a", label: "\u2b50 Confirm text can be resized to 200% without content clipping, horizontal scrolling, or loss of functionality.", hint: "Ctrl + to 200%", la: ["Ensure text can be resized to 200% without loss of content or functionality"] },
-      { id: "c3b", label: "\u2b50 Confirm content reflows to a single column at 400% without horizontal scrolling.", hint: "Ctrl + to 400%", la: ["Ensure pages reflow without requiring two-dimensional scrolling without loss of content or functionality"] },
-      { id: "c4", label: "Text spacing. Click the <a href=\"https://www.html5accessibility.com/tests/tsbookmarklet.html\" target=\"_blank\" style=\"color:var(--blue)\">Text Spacing bookmarklet</a> (by Steve Faulkner) in your browser bar to inject WCAG-minimum spacing values. Does any text clip, overflow its container, or disappear?", la: ["Ensure that content and functionality is available when the user overrides text spacing properties"] },
+      { id: "c3", label: "\u2b50 Confirm text can be resized to 200% without content clipping, horizontal scrolling, or loss of functionality.", hint: "Ctrl + to 200%", la: ["Ensure text can be resized to 200% without loss of content or functionality"] },
+      { id: "c4", label: "\u2b50 Confirm content reflows to a single column at 400% without horizontal scrolling.", hint: "Ctrl + to 400%", la: ["Ensure pages reflow without requiring two-dimensional scrolling without loss of content or functionality"] },
+      { id: "c5", label: "Text spacing. Click the <a href=\"https://www.html5accessibility.com/tests/tsbookmarklet.html\" target=\"_blank\" style=\"color:var(--blue)\">Text Spacing bookmarklet</a> (by Steve Faulkner) in your browser bar to inject WCAG-minimum spacing values. Does any text clip, overflow its container, or disappear?", la: ["Ensure that content and functionality is available when the user overrides text spacing properties"] },
     ]
   },
   {
     id: "landmarks", letter: "D", title: "Landmarks", type: "ph-sr", cadence: "view",
     checks: [
       { id: "d1", label: "Open NVDA\u2019s Elements List and check for landmark regions. Confirm landmarks are present, appear in a logical order, contain appropriate content, and that multiple landmarks of the same type each have a unique name.", hint: "Insert+Fn+F7 \u2192 Landmarks", la: ["Ensure landmark regions are present and identify the structure of the page"] },
-      { id: "d6", label: "Navigate to each image. All images require an alt attribute. Informative images should announce meaningful text; decorative images should be skipped, i.e. <code>alt=&quot;&quot;</code>. Without it, NVDA announces the filename.", hint: "NVDA announces alt text when focus lands on an image", la: ["Ensure all images have an alt attribute, including decorative images", "Provide alternative text for meaningful images", "Ensure images provide informative alternative text"] },
+      { id: "d2", label: "Navigate to each image. All images require an alt attribute. Informative images should announce meaningful text; decorative images should be skipped, i.e. <code>alt=&quot;&quot;</code>. Without it, NVDA announces the filename.", hint: "NVDA announces alt text when focus lands on an image", la: ["Ensure all images have an alt attribute, including decorative images", "Provide alternative text for meaningful images", "Ensure images provide informative alternative text"] },
     ]
   },
   {
@@ -192,26 +192,26 @@ const PHASES = [
     checks: [
       { id: "e1", label: "Open NVDA\u2019s Elements List and confirm headings are present.", hint: "Insert+Fn+F7 to open Elements List, then select Headings", la: ["Ensure headings are present"] },
       { id: "e2", label: "Headings form a logical outline (H1 > H2 > H3), with no skipped levels, and each heading\u2019s level matches its visual importance.", la: ["Ensure headings and labels are descriptive and unique", "Ensure heading level matches the heading\u2019s visual importance/level"] },
-      { id: "e6", label: "No element is coded as a heading (<code>&lt;h1&gt;</code>\u2013<code>&lt;h6&gt;</code>) unless it functions as one visually and structurally.", la: ["Avoid unnecessary use of heading elements"] },
-      { id: "e6b", label: "No content that appears visually as a heading is coded as plain text (<code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;p&gt;</code>).", la: ["Avoid the use of implicit headings"] },
+      { id: "e3", label: "No element is coded as a heading (<code>&lt;h1&gt;</code>\u2013<code>&lt;h6&gt;</code>) unless it functions as one visually and structurally.", la: ["Avoid unnecessary use of heading elements"] },
+      { id: "e4", label: "No content that appears visually as a heading is coded as plain text (<code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;p&gt;</code>).", la: ["Avoid the use of implicit headings"] },
     ]
   },
   {
     id: "links", letter: "F", title: "Links", type: "ph-sr", cadence: "view",
     checks: [
       { id: "f1", label: "Open NVDA\u2019s Elements List and confirm links are present and appear in a logical order.", hint: "Insert+Fn+F7 to open Elements List, then select Links", la: ["Ensure links are present on the page", "Ensure links appear in a logical order"] },
-      { id: "f3", label: "Link text is unique and contextual within the surrounding content.", la: ["Ensure link text is meaningful within context"] },
-      { id: "f4", label: "All links are announced as links by NVDA and reachable via K in Browse Mode.", la: ["Ensure links are announced as links by assistive technology", "Ensure links are accessible via NVDA link navigation in Browse Mode"] },
+      { id: "f2", label: "Link text is unique and contextual within the surrounding content.", la: ["Ensure link text is meaningful within context"] },
+      { id: "f3", label: "All links are announced as links by NVDA and reachable via K in Browse Mode.", la: ["Ensure links are announced as links by assistive technology", "Ensure links are accessible via NVDA link navigation in Browse Mode"] },
     ]
   },
   {
     id: "forms", letter: "G", title: "Forms", type: "ph-sr", cadence: "view",
     checks: [
       { id: "g1", label: "Open NVDA\u2019s Elements List and confirm form elements are present and appear in a logical order.", hint: "Insert+Fn+F7 to open Elements List, then select Form fields", la: ["Ensure form elements are present on the page", "Ensure form elements appear in a logical order", "Provide fieldsets for groups of form controls"] },
-      { id: "g1b", label: "When a field receives focus, NVDA announces only that field \u2014 not the full page from the top.", la: ["Ensure focus on form fields does not trigger a full page read by assistive technology", "Ensure custom controls provide proper textual name, role, and state information"] },
+      { id: "g2", label: "When a field receives focus, NVDA announces only that field \u2014 not the full page from the top.", la: ["Ensure focus on form fields does not trigger a full page read by assistive technology", "Ensure custom controls provide proper textual name, role, and state information"] },
       { id: "g3", label: "Combobox select lists can be opened with Alt+Down Arrow or Spacebar.", hint: "Alt+\u2193 or Spacebar", la: ["Ensure custom controls are keyboard accessible"] },
       { id: "g4", label: "When tabbing into each field, NVDA announces label, role, required state, current value, hint/description, and error state. Any of these missing is a failure.", la: ["Provide visual labels or instructions for user input", "Ensure the visible text label for a control is included in the control\u2019s accessible name", "Ensure custom controls provide proper textual name, role, and state information", "Ensure form field constraints and errors are associated with their corresponding field"] },
-      { id: "g6", label: "\u2b50 Confirm all form elements are navigable using the screen reader and keyboard.", la: ["Ensure custom controls are keyboard accessible"] },
+      { id: "g5", label: "\u2b50 Confirm all form elements are navigable using the screen reader and keyboard.", la: ["Ensure custom controls are keyboard accessible"] },
     ]
   },
   {
@@ -228,20 +228,20 @@ const PHASES = [
     id: "tables", letter: "I", title: "Tables", type: "ph-sr", cadence: "view",
     checks: [
       { id: "i1", label: "Navigate between tables and through their content, including all static and interactive elements.", hint: "T / Shift+T to move between tables, Ctrl+Alt+Arrow keys to navigate cells" },
-      { id: "i3", label: "Table headers are identified and announced when navigating cells.", la: ["Ensure data table headers are properly identified"] },
-      { id: "i4", label: "Content that appears as a table is announced as a table by NVDA.", la: ["Ensure data tables are formatted using table elements"] },
-      { id: "i4b", label: "NVDA does not announce a table where no table is visually present.", la: ["Ensure table markup is not applied to content that is not a data table"] },
+      { id: "i2", label: "Table headers are identified and announced when navigating cells.", la: ["Ensure data table headers are properly identified"] },
+      { id: "i3", label: "Content that appears as a table is announced as a table by NVDA.", la: ["Ensure data tables are formatted using table elements"] },
+      { id: "i4", label: "NVDA does not announce a table where no table is visually present.", la: ["Ensure table markup is not applied to content that is not a data table"] },
     ]
   },
   {
     id: "focus", letter: "J", title: "Reading Order & Focus", type: "ph-sr", cadence: "view",
     checks: [
       { id: "j1", label: "Use arrow keys to read content from top to bottom. The reading order is logical and in sequence.", hint: "Arrow keys", la: ["Ensure that the reading order of content is logical"] },
-      { id: "j1b", label: "When a new page loads after form submission, focus is set to the top of the page so NVDA begins reading from the beginning.", la: ["Ensure focus is set to the top of the page when a new page loads after form submission"] },
+      { id: "j2", label: "When a new page loads after form submission, focus is set to the top of the page so NVDA begins reading from the beginning.", la: ["Ensure focus is set to the top of the page when a new page loads after form submission"] },
       { id: "j3", label: "Activating a menu or dialog moves focus to that element and NVDA announces it.", la: ["Ensure content updates define focus updates appropriately"] },
       { id: "j4", label: "Visually hidden content is not read by NVDA when it should not be.", la: ["Ensure content that is intended to be hidden from all users is not rendered by assistive technology"] },
       { id: "j5", label: "All actionable elements receive focus on Tab; no non-actionable elements do.", la: ["Avoid placing non-interactive elements in the focus order"] },
-      { id: "k3", label: "Dynamic content. If you click a button that opens a toast notification or updates content, does the screen reader announce that change automatically (using aria-live)?", la: ["Ensure content updates define focus updates appropriately", "Ensure that status messages can be determined programmatically without receiving focus", "Indicate live regions for dynamically changing content"] },
+      { id: "j6", label: "Dynamic content. If you click a button that opens a toast notification or updates content, does the screen reader announce that change automatically (using aria-live)?", la: ["Ensure content updates define focus updates appropriately", "Ensure that status messages can be determined programmatically without receiving focus", "Indicate live regions for dynamically changing content"] },
     ]
   },
 ];
@@ -282,7 +282,7 @@ function render() {
         role="checkbox" aria-checked="${isChecked}" tabindex="0"
         onkeydown="if(event.key===' '||event.key==='Enter'){toggleCheck('${c.id}','${phase.cadence}');event.preventDefault()}">
         <div class="checkbox"><span class="checkbox-tick">✓</span></div>
-        <div class="check-label">${c.label}${c.hint ? `<div class="check-hint">${c.hint}</div>` : ''}${c.la ? `<div class="la-chips">${c.la.map((t,i) => `<button class="la-chip" onclick="copyChip(event,this)" data-text="${t.replace(/'/g,'&#39;')}">${COPY_SVG} ${t}</button>`).join('')}</div>` : ''}</div>
+        <div class="check-label">${c.label}${c.hint ? `<div class="check-hint">${c.hint}</div>` : ''}${c.la ? `<div class="la-chips">${c.la.map((t,i) => `<button class="la-chip" onclick="copyChip(event,this)" data-text="${(c.id.toUpperCase() + ' · ' + t).replace(/'/g,'&#39;')}">${COPY_SVG} ${c.id.toUpperCase()} · ${t}</button>`).join('')}</div>` : ''}</div>
         <button class="copy-inline" onclick="copyCheck(event,this,'${c.id}')">${COPY_SVG}</button>
       </div>`;
     }).join("");
