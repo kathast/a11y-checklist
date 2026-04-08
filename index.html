@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a1a18">
 <title>a11y Checklist</title>
 <style>
 :root {
@@ -14,15 +14,10 @@
   --text: #1a1a18;
   --text-muted: #6b6966;
   --text-faint: #9e9b96;
-  --purple: #3c3489;
-  --purple-light: #eeedfe;
   --blue: #185fa5;
   --blue-light: #e6f1fb;
   --green: #1d9e75;
   --green-light: #e1f5ee;
-  --amber: #854f0b;
-  --amber-light: #faeeda;
-  --gray-light: #f1efe8;
   --font: Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: "SFMono-Regular", Consolas, monospace;
   --radius: 6px;
@@ -37,41 +32,52 @@
   --text: #e8e6e0;
   --text-muted: #9e9b96;
   --text-faint: #6b6966;
-  --purple: #b0aaff;
-  --purple-light: #2e2a58;
   --blue: #7db8f7;
   --blue-light: #1a3352;
   --green: #4ecba0;
   --green-light: #0d3326;
-  --amber: #f0a84a;
-  --amber-light: #32200a;
-  --gray-light: #252420;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; min-height: 100vh; }
 
-.app { min-height: 100vh; display: flex; flex-direction: column; }
-.main { flex: 1; display: flex; flex-direction: column; }
+.topbar { padding: 28px 40px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; background: var(--bg); position: sticky; top: 0; z-index: 10; }
+.topbar-title { font-size: 20px; font-weight: 700; color: var(--text); flex: 1; }
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
+.icon-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 10px; cursor: pointer; font-size: 15px; color: var(--text-muted); line-height: 1; transition: background 0.12s; font-family: var(--font); }
+.confirm-btns { display: flex; gap: 4px; }
+.icon-btn-danger { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 10px; cursor: pointer; font-size: 14px; color: #e05252; line-height: 1; transition: background 0.12s; font-family: var(--font); }
+.icon-btn-danger:hover { background: #fef2f2; }
+.icon-btn-cancel { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 10px; cursor: pointer; font-size: 14px; color: var(--text-muted); line-height: 1; transition: background 0.12s; font-family: var(--font); }
+.icon-btn-cancel:hover { background: var(--bg-muted); }
 
-.topbar { padding: 14px 40px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; background: var(--bg); position: sticky; top: 0; z-index: 10; }
-.topbar-title { font-size: 14px; font-weight: 600; color: var(--text-muted); flex: 1; }
-.topbar-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.icon-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 10px; cursor: pointer; font-size: 14px; color: var(--text-muted); line-height: 1; transition: background 0.12s; font-family: var(--font); }
-.icon-btn:hover { background: var(--bg-muted); color: var(--text); }
+.content { padding: 48px 40px 60px; max-width: 820px; margin: 0 auto; width: 100%; }
 
-.content { flex: 1; padding: 32px 40px 120px; max-width: 820px; margin: 0 auto; width: 100%; }
+.os-section { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; gap: 16px; }
+.os-section-title { font-size: 15px; font-weight: 600; color: var(--text); }
+.os-section-sub { font-size: 15px; color: var(--text-faint); margin-top: 2px; }
+.os-toggle { display: flex; gap: 6px; }
+.os-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 6px 14px; font-size: 15px; color: var(--text-faint); cursor: pointer; font-family: var(--font); transition: all 0.15s; display: flex; align-items: center; gap: 4px; line-height: 1; }
+.os-btn:hover { border-color: var(--border-strong); color: var(--text-muted); }
+.os-btn.active { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
 
-.view-controls { display: flex; align-items: center; background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 20px; margin-bottom: 28px; gap: 0; }
-.view-counter { display: flex; align-items: center; gap: 12px; }
-.view-label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-faint); }
-.view-num { font-size: 28px; font-weight: 700; color: var(--text); min-width: 32px; text-align: center; }
-.view-nav { display: flex; gap: 4px; }
-.view-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); width: 32px; height: 32px; cursor: pointer; font-size: 18px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; transition: background 0.12s; font-family: var(--font); }
-.view-btn:hover:not(:disabled) { background: var(--bg-muted); color: var(--text); }
-.view-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-.view-divider { width: 1px; background: var(--border); height: 32px; margin: 0 20px; }
-.view-note { font-size: 13px; color: var(--text-faint); line-height: 1.5; flex: 1; }
-.view-note strong { color: var(--text-muted); font-weight: 600; }
+.setup-card { border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 36px; overflow: hidden; }
+.setup-sections { display: grid; grid-template-columns: 1fr 1fr; }
+.setup-section { padding: 16px 20px; }
+.setup-section:first-child { border-right: 1px solid var(--border); }
+.setup-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-faint); margin-bottom: 10px; }
+
+/* Each column has two panels — one per OS — that stack via grid */
+.os-panel { display: none; flex-direction: column; gap: 6px; }
+.os-panel.active { display: flex; }
+
+.setup-item { font-size: 13px; color: var(--text-muted); line-height: 1.5; padding-left: 14px; position: relative; }
+.setup-item::before { content: "·"; position: absolute; left: 0; color: var(--text-faint); }
+.setup-item a { color: var(--blue); text-decoration: none; }
+.setup-item a:hover { text-decoration: underline; }
+
+/* Fade animation */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.os-panel.active { animation: fadeIn 0.2s ease; }
 
 .phase { margin-bottom: 20px; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
 .phase.collapsed .checks { display: none; }
@@ -84,242 +90,289 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
 .phase.all-done .phase-letter[data-letter]::before { content: "✓"; }
 .phase-header { display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: var(--bg-soft); border-bottom: 1px solid var(--border); cursor: pointer; }
 .phase-header:hover { background: var(--bg-muted); }
-.phase-letter { font-size: 11px; font-weight: 700; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.12s, color 0.12s; cursor: pointer; }
+.phase-letter { font-size: 11px; font-weight: 700; width: 24px; height: 24px; border-radius: 50%; background: var(--blue-light); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.12s, color 0.12s; cursor: pointer; }
 .phase-letter[data-letter]::before { content: attr(data-letter); }
 .phase-letter[data-letter]:hover::before { content: "✓"; }
 .phase-letter[data-letter]:hover { background: var(--green) !important; color: white !important; }
-.phase-title { font-size: 15px; font-weight: 600; flex: 1; }
-.phase-sub { font-size: 13px; color: var(--text-faint); margin-top: 1px; }
+.phase-title { font-size: 15px; font-weight: 400; flex: 1; }
 .copy-inline { background: none; border: none; cursor: pointer; color: var(--text-faint); padding: 0 4px; transition: color 0.1s; line-height: 1; display: inline-flex; align-items: center; margin-left: auto; flex-shrink: 0; align-self: center; }
 .copy-inline:hover { color: var(--text-muted); }
 .copy-inline.copied { color: var(--green); }
-
 .checks { padding: 2px 0; }
 .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 11px 16px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; user-select: none; }
 .check-item:last-child { border-bottom: none; }
-.check-item:hover:not(.locked) { background: var(--bg-soft); }
+.check-item:hover { background: var(--bg-soft); }
 .check-item.checked { background: var(--green-light); }
 .check-item.checked .check-label { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--green); }
-.check-item.locked { opacity: 0.45; cursor: not-allowed; }
 .checkbox { width: 18px; height: 18px; border: 1.5px solid var(--border-strong); border-radius: 3px; flex-shrink: 0; margin-top: 3px; display: flex; align-items: center; justify-content: center; transition: all 0.12s; background: var(--bg); }
 .check-item.checked .checkbox { background: var(--green); border-color: var(--green); }
 .checkbox-tick { color: white; font-size: 11px; font-weight: 700; opacity: 0; }
 .check-item.checked .checkbox-tick { opacity: 1; }
 .check-label { font-size: 15px; color: var(--text); line-height: 1.55; flex: 1; }
-.check-label strong { font-weight: 600; }
 .check-hint { font-size: 12px; color: var(--blue); font-family: var(--mono); margin-top: 3px; }
 .la-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
 .la-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; color: var(--text-muted); background: var(--bg-muted); border: 1px solid var(--border); border-radius: 99px; padding: 2px 9px 2px 7px; cursor: pointer; transition: background 0.1s, color 0.1s; line-height: 1.4; font-family: var(--font); text-align: left; }
 .la-chip:hover { background: var(--border); color: var(--text); }
 .la-chip.copied { color: var(--green); border-color: var(--green); background: var(--green-light); }
 .la-chip svg { flex-shrink: 0; }
-
-.ph-setup .phase-letter { background: var(--gray-light); color: var(--text-muted); }
-.ph-keyboard .phase-letter { background: var(--blue-light); color: var(--blue); }
-.ph-visual .phase-letter { background: var(--blue-light); color: var(--blue); }
-.ph-sr .phase-letter { background: var(--blue-light); color: var(--blue); }
-
-.action-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg); border-top: 1px solid var(--border); padding: 14px 40px; display: flex; align-items: center; gap: 10px; z-index: 20; }
-.btn-primary { background: var(--purple); color: white; border: none; border-radius: var(--radius); padding: 9px 18px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font); transition: opacity 0.12s; }
-.btn-primary:hover { opacity: 0.86; }
-.btn-ghost { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 14px; font-size: 14px; color: var(--text-muted); cursor: pointer; font-family: var(--font); transition: background 0.12s; }
-.btn-ghost:hover { background: var(--bg-muted); color: var(--text); }
 </style>
 </head>
 <body>
-<div class="app">
-  <div class="main">
-    <div class="topbar">
-      <span class="topbar-title">a11y Checklist</span>
-      <div class="topbar-actions">
-        <button class="icon-btn" onclick="toggleAllPhases()" id="collapseBtn">Expand all</button>
-        <button class="icon-btn" onclick="toggleTheme()">◐</button>
+
+<div class="topbar">
+  <span class="topbar-title">a11y Checklist</span>
+  <div class="topbar-actions">
+    <button class="icon-btn" id="clearBtn" onclick="confirmClear()" style="color:#c0504d;">Clear progress</button>
+    <button class="icon-btn" id="collapseBtn" onclick="toggleAllPhases()">Expand all</button>
+    <div id="themeSwitch" onclick="setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')" title="Toggle dark/light mode" style="margin-left:8px;position:relative;width:44px;height:24px;cursor:pointer;flex-shrink:0;">
+      <div id="themeTrack" style="position:absolute;inset:0;background:#2563a8;border-radius:99px;transition:background 0.25s;">
+        <div id="themeThumb" style="position:absolute;top:3px;left:3px;width:18px;height:18px;background:white;border-radius:50%;transition:transform 0.25s;box-shadow:0 1px 3px rgba(0,0,0,0.25);transform:translateX(20px);"></div>
+
       </div>
-    </div>
-
-    <div class="content" id="content"></div>
-
-    <div class="action-bar">
-      <button class="btn-ghost" onclick="clearAll()">Reset all checks</button>
-      <div style="flex:1;"></div>
-      <button class="btn-ghost" onclick="prevView()">← Prev view</button>
-      <button class="btn-primary" onclick="nextView()">Next view →</button>
     </div>
   </div>
 </div>
 
+<div class="content">
+  <div class="os-section">
+    <div>
+      <div class="os-section-title">Select your operating system</div>
+      <div class="os-section-sub">Keyboard shortcuts, tools, and pre-scan steps will update to match.</div>
+    </div>
+    <div class="os-toggle">
+      <button class="os-btn active" id="btnMac" onclick="setOS('mac')">&#63743; Mac</button>
+      <button class="os-btn" id="btnWin" onclick="setOS('win')"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg> Windows</button>
+    </div>
+  </div>
+
+  <div class="setup-card">
+    <div class="setup-sections">
+      <div class="setup-section">
+        <div class="setup-label">Pre-Scan (each session)</div>
+        <div class="os-panel active" id="prescan-mac">
+          <div class="setup-item">VoiceOver is running. Safari is the active browser.</div>
+          <div class="setup-item">Mouse is disconnected or disabled. Keyboard only.</div>
+          <div class="setup-item">Zoom is at 100%. Browser at default font size.</div>
+          <div class="setup-item">Findings log is open with a blank row ready.</div>
+          <div class="setup-item">VoiceOver is active — press <code style="font-family:var(--mono);font-size:11px;background:var(--bg-muted);padding:1px 4px;border-radius:3px;">Cmd+F5</code> to toggle. Use <code style="font-family:var(--mono);font-size:11px;background:var(--bg-muted);padding:1px 4px;border-radius:3px;">VO+A</code> to read and <code style="font-family:var(--mono);font-size:11px;background:var(--bg-muted);padding:1px 4px;border-radius:3px;">VO+Shift+M</code> to interact.</div>
+        </div>
+        <div class="os-panel" id="prescan-win">
+          <div class="setup-item">NVDA is running. Chrome is the active browser.</div>
+          <div class="setup-item">Mouse is disconnected or disabled. Keyboard only.</div>
+          <div class="setup-item">Zoom is at 100%. Browser at default font size.</div>
+          <div class="setup-item">Findings log is open with a blank row ready.</div>
+          <div class="setup-item">NVDA is in Browse Mode — only single-key shortcuts (H, D, K…) will work. Press <code style="font-family:var(--mono);font-size:11px;background:var(--bg-muted);padding:1px 4px;border-radius:3px;">Escape</code> to return after interacting with a field.</div>
+        </div>
+      </div>
+      <div class="setup-section">
+        <div class="setup-label">Tools Setup (one-time)</div>
+        <div class="os-panel active" id="tools-mac">
+          <div class="setup-item">Use VoiceOver (built-in, no install needed).</div>
+          <div class="setup-item">Use Safari (built-in, no install needed).</div>
+          <div class="setup-item">Install <a href="https://vispero.com/lp/color-contrast-checker/" target="_blank">TPGi Color Contrast Analyser (CCA)</a> or bookmark <a href="https://webaim.org/resources/contrastchecker/" target="_blank">WebAIM Contrast Checker</a>.</div>
+          <div class="setup-item">Add <a href="https://codepen.io/stevef/full/YLMqbo" target="_blank">Steve Faulkner's Text Spacing Bookmarklet</a> to your browser bar.</div>
+        </div>
+        <div class="os-panel" id="tools-win">
+          <div class="setup-item">Install <a href="https://www.nvaccess.org/download/" target="_blank">NVDA Screen Reader</a>.</div>
+          <div class="setup-item">Install <a href="https://www.google.com/chrome/dr/download/" target="_blank">Google Chrome</a> and use as the default testing browser.</div>
+          <div class="setup-item">Install <a href="https://vispero.com/lp/color-contrast-checker/" target="_blank">TPGi Color Contrast Analyser (CCA)</a> or bookmark <a href="https://webaim.org/resources/contrastchecker/" target="_blank">WebAIM Contrast Checker</a>.</div>
+          <div class="setup-item">Add <a href="https://codepen.io/stevef/full/YLMqbo" target="_blank">Steve Faulkner's Text Spacing Bookmarklet</a> to your browser bar.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="phases"></div>
+
+  <footer style="margin-top:48px;padding-top:24px;border-top:1px solid var(--border);font-size:15px;color:var(--text-faint);">
+    For questions, reach out to the accessibility thread on Teams.
+  </footer>
+</div>
+
 <script>
+let currentOS = 'mac';
+
+const HINTS = {
+  a1: { mac: 'Tab · Shift+Tab', win: 'Tab · Shift+Tab' },
+  a2: { mac: 'Tab', win: 'Tab' },
+  b3: { mac: 'Cmd+ to 200%', win: 'Ctrl+ to 200%' },
+  b4: { mac: 'Cmd+ to 400%', win: 'Ctrl+ to 400%' },
+  c1: { mac: 'VO+U → Landmarks', win: 'Insert+Fn+F7 → Landmarks' },
+  c2: { mac: 'VO+Right Arrow to navigate images', win: 'G to navigate images' },
+  d1: { mac: 'VO+U → Headings', win: 'Insert+Fn+F7 → Headings' },
+  e1: { mac: 'VO+U → Links', win: 'Insert+Fn+F7 → Links' },
+  f1: { mac: 'VO+U → Form Controls', win: 'Insert+Fn+F7 → Form fields' },
+  f3: { mac: 'VO+Shift+Down Arrow or Space', win: 'Alt+↓ or Spacebar' },
+  h1: { mac: 'VO+Right Arrow to navigate · VO+Shift+M to interact', win: 'T / Shift+T between tables · Ctrl+Alt+Arrow keys to navigate cells' },
+  i1: { mac: 'VO+Right Arrow', win: 'Arrow keys' },
+};
+
 const PHASES = [
-  {
-    id: "setup", letter: "A", title: "Pre-Scan Setup", type: "ph-setup", cadence: "variant",
-    sub: "Complete once per accessibility scan session.",
-    checks: [
-      { id: "a1", label: "NVDA is running. Chrome is the active browser." },
-      { id: "a2", label: "Mouse is disconnected or disabled. Keyboard only." },
-      { id: "a3", label: "Zoom is at 100%. Browser at default font size." },
-      { id: "a4", label: "Findings log is open with a blank row ready." },
-      { id: "a5", label: "NVDA is in Browse Mode \u2014 only single-key shortcuts (H, D, K\u2026) will work. After interacting with a field, press Escape to return \u2014 clicks won\u2019t work.", hint: "Escape to return to Browse Mode" },
-    ]
-  },
-  {
-    id: "keyboard", letter: "B", title: "Keyboard & Focus Testing", type: "ph-keyboard", cadence: "view",
-    checks: [
-      { id: "b1", label: "Tab order. Tab through the page top-to-bottom. The order is logical and follows the visual reading order.", la: ["Ensure all interactive functionality is operable with the keyboard", "Ensure the focus order of interactive elements on the page is logical"] },
-      { id: "b2", label: "Focus visible. A clear visual focus indicator is present on every focused element.", la: ["Ensure keyboard focus is indicated visually"] },
-      { id: "b3", label: "Keyboard traps. Every menu, modal, and form field can be entered and exited without getting stuck.", la: ["Ensure keyboard focus is not trapped", "Ensure all interactive functionality is operable with the keyboard"] },
-      { id: "b4", label: "Skip links. A \u2018Skip to Main Content\u2019 link appears on the first Tab press.", la: ["Provide a mechanism for skipping past repetitive content"] },
-    ]
-  },
-  {
-    id: "visual", letter: "C", title: "Visual & Sensory Check", type: "ph-visual", cadence: "variant",
-    checks: [
-      { id: "c1", label: "Color contrast. Check text against its background. WCAG 2.1 AA requires a ratio of at least 4.5:1 for regular text and 3:1 for large text.", la: ["Ensure text and images of text provide sufficient contrast", "Ensure active user interface components have sufficient contrast"] },
-      { id: "c2", label: "Use of color. Ensure information isn\u2019t conveyed only by color (e.g., an error shouldn\u2019t just be a red box \u2014 it needs an \u2018Error\u2019 label or icon).", la: ["Ensure color is not the sole means of communicating information"] },
-      { id: "c3", label: "\u2b50 Confirm text can be resized to 200% without content clipping, horizontal scrolling, or loss of functionality.", hint: "Ctrl + to 200%", la: ["Ensure text can be resized to 200% without loss of content or functionality"] },
-      { id: "c4", label: "\u2b50 Confirm content reflows to a single column at 400% without horizontal scrolling.", hint: "Ctrl + to 400%", la: ["Ensure pages reflow without requiring two-dimensional scrolling without loss of content or functionality"] },
-      { id: "c5", label: "Text spacing. Click the <a href=\"https://www.html5accessibility.com/tests/tsbookmarklet.html\" target=\"_blank\" style=\"color:var(--blue)\">Text Spacing bookmarklet</a> (by Steve Faulkner) in your browser bar to inject WCAG-minimum spacing values. Does any text clip, overflow its container, or disappear?", la: ["Ensure that content and functionality is available when the user overrides text spacing properties"] },
-    ]
-  },
-  {
-    id: "landmarks", letter: "D", title: "Landmarks", type: "ph-sr", cadence: "view",
-    checks: [
-      { id: "d1", label: "Open NVDA\u2019s Elements List and check for landmark regions. Confirm landmarks are present, appear in a logical order, contain appropriate content, and that multiple landmarks of the same type each have a unique name.", hint: "Insert+Fn+F7 \u2192 Landmarks", la: ["Ensure landmark regions are present and identify the structure of the page"] },
-      { id: "d2", label: "Navigate to each image. All images require an alt attribute. Informative images should announce meaningful text; decorative images should be skipped, i.e. <code>alt=&quot;&quot;</code>. Without it, NVDA announces the filename.", hint: "NVDA announces alt text when focus lands on an image", la: ["Ensure all images have an alt attribute, including decorative images", "Provide alternative text for meaningful images", "Ensure images provide informative alternative text"] },
-    ]
-  },
-  {
-    id: "headings", letter: "E", title: "Headings", type: "ph-sr", cadence: "view",
-    checks: [
-      { id: "e1", label: "Open NVDA\u2019s Elements List and confirm headings are present.", hint: "Insert+Fn+F7 to open Elements List, then select Headings", la: ["Ensure headings are present"] },
-      { id: "e2", label: "Headings form a logical outline (H1 > H2 > H3), with no skipped levels, and each heading\u2019s level matches its visual importance.", la: ["Ensure headings and labels are descriptive and unique", "Ensure heading level matches the heading\u2019s visual importance/level"] },
-      { id: "e3", label: "No element is coded as a heading (<code>&lt;h1&gt;</code>\u2013<code>&lt;h6&gt;</code>) unless it functions as one visually and structurally.", la: ["Avoid unnecessary use of heading elements"] },
-      { id: "e4", label: "No content that appears visually as a heading is coded as plain text (<code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;p&gt;</code>).", la: ["Avoid the use of implicit headings"] },
-    ]
-  },
-  {
-    id: "links", letter: "F", title: "Links", type: "ph-sr", cadence: "view",
-    checks: [
-      { id: "f1", label: "Open NVDA\u2019s Elements List and confirm links are present and appear in a logical order.", hint: "Insert+Fn+F7 to open Elements List, then select Links", la: ["Ensure links are present on the page", "Ensure links appear in a logical order"] },
-      { id: "f2", label: "Link text is unique and contextual within the surrounding content.", la: ["Ensure link text is meaningful within context"] },
-      { id: "f3", label: "All links are announced as links by NVDA and reachable via K in Browse Mode.", la: ["Ensure links are announced as links by assistive technology", "Ensure links are accessible via NVDA link navigation in Browse Mode"] },
-    ]
-  },
-  {
-    id: "forms", letter: "G", title: "Forms", type: "ph-sr", cadence: "view",
-    checks: [
-      { id: "g1", label: "Open NVDA\u2019s Elements List and confirm form elements are present and appear in a logical order.", hint: "Insert+Fn+F7 to open Elements List, then select Form fields", la: ["Ensure form elements are present on the page", "Ensure form elements appear in a logical order", "Provide fieldsets for groups of form controls"] },
-      { id: "g2", label: "When a field receives focus, NVDA announces only that field \u2014 not the full page from the top.", la: ["Ensure focus on form fields does not trigger a full page read by assistive technology", "Ensure custom controls provide proper textual name, role, and state information"] },
-      { id: "g3", label: "Combobox select lists can be opened with Alt+Down Arrow or Spacebar.", hint: "Alt+\u2193 or Spacebar", la: ["Ensure custom controls are keyboard accessible"] },
-      { id: "g4", label: "When tabbing into each field, NVDA announces label, role, required state, current value, hint/description, and error state. Any of these missing is a failure.", la: ["Provide visual labels or instructions for user input", "Ensure the visible text label for a control is included in the control\u2019s accessible name", "Ensure custom controls provide proper textual name, role, and state information", "Ensure form field constraints and errors are associated with their corresponding field"] },
-      { id: "g5", label: "\u2b50 Confirm all form elements are navigable using the screen reader and keyboard.", la: ["Ensure custom controls are keyboard accessible"] },
-    ]
-  },
-  {
-    id: "errors", letter: "H", title: "Error Messages", type: "ph-sr", cadence: "view",
-    checks: [
-      { id: "h1", label: "Submit with errors \u2014 NVDA announces the error or moves focus to the first invalid field, and announces it as invalid.", la: ["Provide a clear indication of fields in error for information that is submitted"] },
-      { id: "h2", label: "Each error message is associated with its field, read by NVDA on tab, and tells the user what to do to correct it.", la: ["Ensure error messages provide guidance on how to correct the error", "Ensure form field constraints and errors are associated with their corresponding field"] },
-      { id: "h3", label: "Errors are automatically announced after submitting the form.", la: ["Ensure that status messages can be determined programmatically without receiving focus"] },
-      { id: "h4", label: "Errors are not conveyed by color alone \u2014 a text label or icon is present.", la: ["Ensure color is not the sole means of communicating information"] },
-      { id: "h5", label: "The form can be corrected and resubmitted.", la: ["Ensure users can correct errors and resubmit the form"] },
-    ]
-  },
-  {
-    id: "tables", letter: "I", title: "Tables", type: "ph-sr", cadence: "view",
-    checks: [
-      { id: "i1", label: "Navigate between tables and through their content, including all static and interactive elements.", hint: "T / Shift+T to move between tables, Ctrl+Alt+Arrow keys to navigate cells" },
-      { id: "i2", label: "Table headers are identified and announced when navigating cells.", la: ["Ensure data table headers are properly identified"] },
-      { id: "i3", label: "Content that appears as a table is announced as a table by NVDA.", la: ["Ensure data tables are formatted using table elements"] },
-      { id: "i4", label: "NVDA does not announce a table where no table is visually present.", la: ["Ensure table markup is not applied to content that is not a data table"] },
-    ]
-  },
-  {
-    id: "focus", letter: "J", title: "Reading Order & Focus", type: "ph-sr", cadence: "view",
-    checks: [
-      { id: "j1", label: "Use arrow keys to read content from top to bottom. The reading order is logical and in sequence.", hint: "Arrow keys", la: ["Ensure that the reading order of content is logical"] },
-      { id: "j2", label: "When a new page loads after form submission, focus is set to the top of the page so NVDA begins reading from the beginning.", la: ["Ensure focus is set to the top of the page when a new page loads after form submission"] },
-      { id: "j3", label: "Activating a menu or dialog moves focus to that element and NVDA announces it.", la: ["Ensure content updates define focus updates appropriately"] },
-      { id: "j4", label: "Visually hidden content is not read by NVDA when it should not be.", la: ["Ensure content that is intended to be hidden from all users is not rendered by assistive technology"] },
-      { id: "j5", label: "All actionable elements receive focus on Tab; no non-actionable elements do.", la: ["Avoid placing non-interactive elements in the focus order"] },
-      { id: "j6", label: "Dynamic content. If you click a button that opens a toast notification or updates content, does the screen reader announce that change automatically (using aria-live)?", la: ["Ensure content updates define focus updates appropriately", "Ensure that status messages can be determined programmatically without receiving focus", "Indicate live regions for dynamically changing content"] },
-    ]
-  },
+  { id: "keyboard", letter: "A", title: "Keyboard & Focus", checks: [
+    { id: "a1", label: "Tab through the page top-to-bottom to ensure focus follows the visual reading order.", la: ["Ensure the focus order of interactive elements on the page is logical"] },
+    { id: "a2", label: "Every focused element has a clear visual focus indicator.", la: ["Ensure keyboard focus is clearly indicated visually"] },
+    { id: "a3", label: "Every menu, modal, and form field can be entered and exited without getting stuck.", la: ["Ensure focus is never trapped inside a menu, modal, or form field"] },
+    { id: "a4", label: "A 'Skip to main content' link is visible on the first tab press.", la: ["Provide a mechanism for skipping past repetitive content"] },
+  ]},
+  { id: "visual", letter: "B", title: "Visual & Sensory", checks: [
+    { id: "b1", label: "Test the color contrast of each element against its background.", la: ["Ensure text and images of text have a contrast ratio of at least 4.5:1 against their background", "Ensure large text has a contrast ratio of at least 3:1 against its background", "Ensure buttons, inputs, and focus indicators have 3:1 contrast against their background"] },
+    { id: "b2", label: "Ensure information isn\u2019t conveyed only by color.", hint: "e.g. required fields, links, selected states, charts, status indicators", la: ["Ensure color is not the sole means of communicating information"] },
+    { id: "b3", label: "Confirm text can be resized to 200% without content clipping, horizontal scrolling, or loss of functionality.", la: ["Ensure text can be resized to 200% without loss of content or functionality"] },
+    { id: "b4", label: "Confirm content reflows to a single column at 400% without horizontal scrolling.", la: ["Ensure content reflows to a single column at 400% zoom without horizontal scrolling"] },
+    { id: "b5", label: "Use the Text Spacing bookmarklet to inject WCAG-minimum spacing values. Check for any text that clips, overflows, or disappears.", la: ["Ensure no content or functionality is lost when text spacing is overridden"] },
+  ]},
+  { id: "landmarks", letter: "C", title: "Landmarks", checks: [
+    { id: "c1", label: "Open the screen reader\u2019s Elements List and confirm landmark regions are present, logically ordered, contain appropriate content, and that duplicate landmark types each have a unique name.", la: ["Ensure landmark regions are present and identify the structure of the page", "Ensure multiple landmarks of the same type have unique names"] },
+    { id: "c2", label: "Navigate to each image and confirm it has an alt attribute. Informative images should announce meaningful text; decorative images should be skipped with <code>alt=&quot;&quot;</code>.", la: ["Ensure all images have an alt attribute", "Ensure informative images have meaningful alternative text"] },
+  ]},
+  { id: "headings", letter: "D", title: "Headings", checks: [
+    { id: "d1", label: "Open the screen reader\u2019s Elements List and confirm headings are present.", la: ["Ensure headings are present"] },
+    { id: "d2", label: "Headings form a logical outline (<code>h1</code> &gt; <code>h2</code> &gt; <code>h3</code>), with no skipped levels, and each heading\u2019s level matches its visual importance.", la: ["Ensure headings are descriptive and unique", "Ensure heading level matches the heading\u2019s visual importance/level"] },
+    { id: "d3", label: "No element is coded as a heading (<code>h1</code> \u2013 <code>h6</code>) unless it functions as one visually and structurally.", la: ["Ensure elements are not coded as headings unless they function as headings"] },
+    { id: "d4", label: "No content that appears visually as a heading is coded as plain text (<code>div</code>, <code>span</code>, <code>p</code>).", la: ["Ensure visually styled headings are coded as heading elements"] },
+  ]},
+  { id: "links", letter: "E", title: "Links", checks: [
+    { id: "e1", label: "Open the screen reader\u2019s Elements List and confirm links are present and appear in a logical order.", la: ["Ensure links are present and appear in a logical order"] },
+    { id: "e2", label: "Link text is unique and contextual within the surrounding content.", la: ["Ensure link text is meaningful within context"] },
+    { id: "e3", label: "All links are announced as links by the screen reader and reachable via keyboard navigation.", la: ["Ensure links are announced as links and navigable via keyboard"] },
+  ]},
+  { id: "forms", letter: "F", title: "Forms", checks: [
+    { id: "f1", label: "Open the screen reader\u2019s Elements List and confirm form elements are present and appear in a logical order.", la: ["Ensure form elements are present and appear in a logical order", "Provide fieldsets for groups of form controls"] },
+    { id: "f2", label: "When a field receives focus, the screen reader announces only that field \u2014 not the full page from the top.", la: ["Ensure focus on form fields does not trigger a full page read by assistive technology"] },
+    { id: "f3", label: "Combobox select lists can be opened with the correct keyboard shortcut.", la: ["Ensure combobox select lists are keyboard accessible"] },
+    { id: "f4", label: "When tabbing into each field, the screen reader announces label, role, required state, current value, hint/description, and error state. Any of these missing is a failure.", la: ["Ensure required form fields are announced as required by assistive technology", "Ensure form fields have visible labels that are included in their accessible name", "Ensure custom controls provide proper textual name, role, and state information"] },
+    { id: "f5", label: "Confirm all form elements are navigable using the screen reader and keyboard.", la: ["Ensure custom controls are keyboard accessible"] },
+  ]},
+  { id: "errors", letter: "G", title: "Error Messages", checks: [
+    { id: "g1", label: "Submit the form with errors and confirm the screen reader announces the error or moves focus to the first invalid field and announces it as invalid.", la: ["Provide a clear indication of fields in error for information that is submitted"] },
+    { id: "g2", label: "Each error message is associated with its field, read by the screen reader on tab, and tells the user what to do to correct it.", la: ["Ensure error messages provide guidance on how to correct the error", "Ensure form field constraints and errors are associated with their corresponding field"] },
+    { id: "g3", label: "Errors are automatically announced after submitting the form.", la: ["Ensure error announcements are triggered automatically without requiring focus"] },
+    { id: "g4", label: "Ensure errors are communicated with a text label or icon, not by color alone.", la: ["Ensure color is not the sole means of communicating information"] },
+    { id: "g5", label: "The form can be corrected and resubmitted.", la: ["Ensure users can correct errors and resubmit the form"] },
+  ]},
+  { id: "tables", letter: "H", title: "Tables", checks: [
+    { id: "h1", label: "Navigate between tables and through their content, including all static and interactive elements.", la: ["Ensure data tables are navigable by keyboard and assistive technology"] },
+    { id: "h2", label: "Table headers are identified and announced when navigating cells.", la: ["Ensure data table headers are properly identified"] },
+    { id: "h3", label: "Content that appears as a table is announced as a table by the screen reader.", la: ["Ensure content structured as a table is marked up as a table"] },
+    { id: "h4", label: "The screen reader does not announce a table where no table is visually present.", la: ["Ensure table markup is not applied to content that is not a data table"] },
+  ]},
+  { id: "focus", letter: "I", title: "Reading Order & Focus", checks: [
+    { id: "i1", label: "Read content top to bottom and confirm the reading order is logical and in sequence.", la: ["Ensure that the reading order of content is logical"] },
+    { id: "i2", label: "When a new page loads after form submission, focus is set to the top of the page so the screen reader begins reading from the beginning.", la: ["Ensure focus returns to the top of the page after form submission"] },
+    { id: "i3", label: "Activating a menu or dialog moves focus to that element and the screen reader announces it.", la: ["Ensure focus moves to newly opened menus and dialogs"] },
+    { id: "i4", label: "Visually hidden content is not read by the screen reader when it should not be.", la: ["Ensure hidden content is not exposed to assistive technology"] },
+    { id: "i5", label: "All actionable elements receive focus on Tab. Non-actionable elements are skipped.", la: ["Ensure all interactive functionality is operable with the keyboard", "Avoid placing non-interactive elements in the focus order"] },
+    { id: "i6", label: "Dynamic content updates are announced automatically by the screen reader using aria-live.", la: ["Ensure dynamic content changes are announced automatically by assistive technology", "Indicate live regions for dynamically changing content"] },
+  ]},
 ];
 
-const state = { checked: new Set(), locked: new Set(), view: 1, expanded: new Set() };
+const state = { checked: new Set(), expanded: new Set() };
 
 const COPY_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
 const COPY_SVG_LG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
 const CHECK_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 const CHECK_SVG_LG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
-function render() {
-  const s = state;
-  const viewHTML = `
-    <div class="view-controls">
-      <div class="view-counter">
-        <span class="view-label">View</span>
-        <span class="view-num">${s.view}</span>
-        <div class="view-nav">
-          <button class="view-btn" onclick="prevView()" ${s.view <= 1 ? 'disabled' : ''}>−</button>
-          <button class="view-btn" onclick="nextView()">+</button>
-        </div>
-      </div>
-      <div class="view-divider"></div>
-      <div class="view-note">
-        NVDA Browse Mode \u2014 after interacting with a field, press <code style="font-family:var(--mono);font-size:11px;background:var(--bg-muted);padding:1px 4px;border-radius:3px;">Escape</code> to return \u2014 clicks won\u2019t work.
-      </div>
-    </div>`;
+function getHint(id) {
+  if (!HINTS[id]) return null;
+  return HINTS[id][currentOS] || null;
+}
 
+function render() {
   const phasesHTML = PHASES.map(phase => {
     const isCollapsed = !state.expanded.has(phase.id);
     const checksHTML = phase.checks.map(c => {
-      const isChecked = s.checked.has(c.id);
-      const isLocked = s.locked.has(c.id) && !isChecked;
-      return `<div class="check-item ${isChecked ? 'checked' : ''} ${isLocked ? 'locked' : ''}"
-        onclick="toggleCheck('${c.id}','${phase.cadence}')"
-        ondblclick="forceUncheck('${c.id}')"
+      const isChecked = state.checked.has(c.id);
+      const hint = c.hint || getHint(c.id);
+      return `<div class="check-item ${isChecked ? 'checked' : ''}"
+        onclick="toggleCheck('${c.id}')"
         role="checkbox" aria-checked="${isChecked}" tabindex="0"
-        onkeydown="if(event.key===' '||event.key==='Enter'){toggleCheck('${c.id}','${phase.cadence}');event.preventDefault()}">
+        onkeydown="if(event.key===' '||event.key==='Enter'){toggleCheck('${c.id}');event.preventDefault()}">
         <div class="checkbox"><span class="checkbox-tick">✓</span></div>
-        <div class="check-label">${c.label}${c.hint ? `<div class="check-hint">${c.hint}</div>` : ''}${c.la ? `<div class="la-chips">${c.la.map((t,i) => `<button class="la-chip" onclick="copyChip(event,this)" data-text="${(c.id.toUpperCase() + ' · ' + t).replace(/'/g,'&#39;')}">${COPY_SVG} ${c.id.toUpperCase()} · ${t}</button>`).join('')}</div>` : ''}</div>
+        <div class="check-label">${c.label}${hint ? `<div class="check-hint">${hint}</div>` : ''}${c.la ? `<div class="la-chips">${c.la.map(t => `<button class="la-chip" onclick="copyChip(event,this)" data-text="${(c.id.toUpperCase() + ' · ' + t).replace(/'/g,'&#39;')}">${COPY_SVG} ${c.id.toUpperCase()} · ${t}</button>`).join('')}</div>` : ''}</div>
         <button class="copy-inline" onclick="copyCheck(event,this,'${c.id}')">${COPY_SVG}</button>
       </div>`;
-    }).join("");
-
-    const allDone = phase.checks.every(c => s.checked.has(c.id));
-    return `<div class="phase ${phase.type} ${allDone ? 'all-done' : ''} ${isCollapsed ? 'collapsed' : 'expanded'}">
+    }).join('');
+    const allDone = phase.checks.every(c => state.checked.has(c.id));
+    return `<div class="phase ${allDone ? 'all-done' : ''} ${isCollapsed ? 'collapsed' : 'expanded'}">
       <div class="phase-header" onclick="togglePhase(event,'${phase.id}')">
         <div class="phase-letter" data-letter="${phase.letter}" onclick="toggleAll(event,'${phase.id}')" title="Check / uncheck all"></div>
-        <div style="flex:1;min-width:0;">
-          <div class="phase-title">${phase.title}</div>
-          ${phase.sub ? `<div class="phase-sub">${phase.sub}</div>` : ''}
-        </div>
+        <div class="phase-title">${phase.title}</div>
         <button class="copy-inline" onclick="copyPhase(event,this,'${phase.id}')">${COPY_SVG_LG}</button>
       </div>
       <div class="checks">${checksHTML}</div>
     </div>`;
-  }).join("");
+  }).join('');
+  document.getElementById('phases').innerHTML = phasesHTML;
+  const btn = document.getElementById('collapseBtn');
+  if (btn) btn.textContent = PHASES.every(p => state.expanded.has(p.id)) ? 'Collapse all' : 'Expand all';
+}
 
-  document.getElementById("content").innerHTML = viewHTML + phasesHTML;
-  const btn = document.getElementById("collapseBtn");
-  if (btn) btn.textContent = PHASES.every(p => state.expanded.has(p.id)) ? "Collapse all" : "Expand all";
+function setOS(os) {
+  currentOS = os;
+  ['prescan', 'tools'].forEach(section => {
+    ['mac', 'win'].forEach(o => {
+      const el = document.getElementById(`${section}-${o}`);
+      if (el) el.classList.toggle('active', o === os);
+    });
+  });
+  document.getElementById('btnMac').classList.toggle('active', os === 'mac');
+  document.getElementById('btnWin').classList.toggle('active', os === 'win');
+  localStorage.setItem('a11y_os', os);
+  render();
+}
+
+function saveState() {
+  localStorage.setItem('a11y_checked', JSON.stringify([...state.checked]));
+  localStorage.setItem('a11y_expanded', JSON.stringify([...state.expanded]));
+}
+
+function loadState() {
+  try {
+    const checked = localStorage.getItem('a11y_checked');
+    const expanded = localStorage.getItem('a11y_expanded');
+    const os = localStorage.getItem('a11y_os');
+    if (checked) JSON.parse(checked).forEach(id => state.checked.add(id));
+    if (expanded) JSON.parse(expanded).forEach(id => state.expanded.add(id));
+    if (os) currentOS = os;
+  } catch(e) {}
+}
+
+function confirmClear() {
+  const btn = document.getElementById('clearBtn');
+  btn.style.display = 'none';
+  const div = document.createElement('div');
+  div.className = 'confirm-btns';
+  div.id = 'confirmDiv';
+  div.innerHTML = `<button class="icon-btn-danger" onclick="clearProgress()">Yes, clear</button><button class="icon-btn-cancel" onclick="cancelClear()">Cancel</button>`;
+  btn.parentNode.insertBefore(div, btn);
+}
+function cancelClear() {
+  document.getElementById('confirmDiv')?.remove();
+  document.getElementById('clearBtn').style.display = '';
+}
+function clearProgress() {
+  state.checked.clear();
+  state.expanded.clear();
+  localStorage.removeItem('a11y_checked');
+  localStorage.removeItem('a11y_expanded');
+  document.getElementById('confirmDiv')?.remove();
+  document.getElementById('clearBtn').style.display = '';
+  setOS(currentOS);
 }
 
 function toggleAllPhases() {
   const allExpanded = PHASES.every(p => state.expanded.has(p.id));
   if (allExpanded) state.expanded.clear();
   else PHASES.forEach(p => state.expanded.add(p.id));
-  render();
+  saveState(); render();
 }
-
-function togglePhase(e, phaseId) {
+function togglePhase(e, id) {
   if (e.target.closest('.copy-inline') || e.target.closest('.phase-letter')) return;
-  if (state.expanded.has(phaseId)) state.expanded.delete(phaseId);
-  else state.expanded.add(phaseId);
-  render();
+  if (state.expanded.has(id)) state.expanded.delete(id);
+  else state.expanded.add(id);
+  saveState(); render();
 }
-
 function doCopy(text, btn, dflt, done) {
   const ok = () => { btn.innerHTML = done; btn.classList.add('copied'); setTimeout(() => { btn.innerHTML = dflt; btn.classList.remove('copied'); }, 1500); };
   if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok).catch(() => fbCopy(text, ok));
@@ -332,11 +385,9 @@ function fbCopy(text, ok) {
   try { document.execCommand('copy'); ok(); } catch(e) {}
   document.body.removeChild(ta);
 }
-
 function stripHTML(html) {
   const d = document.createElement('div'); d.innerHTML = html; return d.textContent || d.innerText || '';
 }
-
 function copyChip(e, btn) {
   e.stopPropagation();
   const text = btn.getAttribute('data-text');
@@ -345,72 +396,50 @@ function copyChip(e, btn) {
   if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok).catch(() => fbCopy(text, ok));
   else fbCopy(text, ok);
 }
-
 function copyCheck(e, btn, id) {
   e.stopPropagation();
   const c = PHASES.flatMap(p => p.checks).find(c => c.id === id);
   doCopy(stripHTML(c.label), btn, COPY_SVG, CHECK_SVG);
 }
-
 function copyPhase(e, btn, id) {
   e.stopPropagation();
   const ph = PHASES.find(p => p.id === id);
-  const text = `${ph.title}\n${ph.checks.map(c => `\u2022 ${stripHTML(c.label)}`).join('\n')}`;
+  const text = `${ph.title}\n${ph.checks.map(c => `• ${stripHTML(c.label)}`).join('\n')}`;
   doCopy(text, btn, COPY_SVG_LG, CHECK_SVG_LG);
 }
-
 function toggleAll(e, phaseId) {
   e.stopPropagation();
   const phase = PHASES.find(p => p.id === phaseId);
   const allChecked = phase.checks.every(c => state.checked.has(c.id));
-  phase.checks.forEach(c => {
-    if (allChecked) { state.checked.delete(c.id); state.locked.delete(c.id); }
-    else { state.checked.add(c.id); if (phase.cadence === 'variant') state.locked.add(c.id); }
-  });
+  phase.checks.forEach(c => allChecked ? state.checked.delete(c.id) : state.checked.add(c.id));
   if (!allChecked) state.expanded.delete(phaseId);
-  render();
+  saveState(); render();
 }
-
-function forceUncheck(id) {
-  state.checked.delete(id); state.locked.delete(id); render();
-}
-
-function toggleCheck(id, cadence) {
-  if (state.locked.has(id)) return;
-  if (state.checked.has(id)) { state.checked.delete(id); }
+function toggleCheck(id) {
+  if (state.checked.has(id)) state.checked.delete(id);
   else {
     state.checked.add(id);
-    if (cadence === 'variant') state.locked.add(id);
     const phase = PHASES.find(p => p.checks.some(c => c.id === id));
     if (phase && phase.checks.every(c => state.checked.has(c.id))) state.expanded.delete(phase.id);
   }
-  render();
+  saveState(); render();
+}
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  const track = document.getElementById('themeTrack');
+  const thumb = document.getElementById('themeThumb');
+  if (track) track.style.background = theme === 'dark' ? '#2563a8' : 'var(--border-strong)';
+  if (thumb) thumb.style.transform = theme === 'dark' ? 'translateX(20px)' : 'translateX(0)';
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.setAttribute('content', theme === 'dark' ? '#1a1a18' : '#ffffff');
 }
 
-function nextView() {
-  PHASES.filter(p => p.cadence === 'view').forEach(p => p.checks.forEach(c => state.checked.delete(c.id)));
-  state.view++; render(); window.scrollTo(0, 0);
-}
-
-function prevView() {
-  if (state.view <= 1) return;
-  PHASES.filter(p => p.cadence === 'view').forEach(p => p.checks.forEach(c => state.checked.delete(c.id)));
-  state.view--; render(); window.scrollTo(0, 0);
-}
-
-function clearAll() {
-  if (!confirm('Reset all checks and views?')) return;
-  state.checked.clear(); state.locked.clear(); state.view = 1; state.expanded.clear(); render(); window.scrollTo(0, 0);
-}
-
-function toggleTheme() {
-  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-}
-
-document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
-render();
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+loadState();
+setOS(currentOS);
+setTheme(savedTheme);
 </script>
 </body>
 </html>
