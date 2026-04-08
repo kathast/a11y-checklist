@@ -215,7 +215,7 @@ const HINTS = {
   d1: { mac: 'VO+U → Headings', win: 'Insert+Fn+F7 → Headings' },
   e1: { mac: 'VO+U → Links', win: 'Insert+Fn+F7 → Links' },
   f1: { mac: 'VO+U → Form Controls', win: 'Insert+Fn+F7 → Form fields' },
-  f3: { mac: 'VO+Shift+Down Arrow or Space', win: 'Alt+↓ or Spacebar' },
+  f3: { mac: 'VO+Shift+Down Arrow or Space to open · VO+Shift+Up Arrow or Escape to close', win: 'Alt+↓ or Spacebar to open · Alt+↑ or Escape to close' },
   h1: { mac: 'VO+Right Arrow to navigate · VO+Shift+M to interact', win: 'T / Shift+T between tables · Ctrl+Alt+Arrow keys to navigate cells' },
   i1: { mac: 'VO+Right Arrow', win: 'Arrow keys' },
 };
@@ -252,7 +252,7 @@ const PHASES = [
   { id: "forms", letter: "F", title: "Forms", checks: [
     { id: "f1", label: "Open the screen reader\u2019s Elements List and confirm form elements are present and appear in a logical order.", la: ["Ensure form elements are present and appear in a logical order", "Provide fieldsets for groups of form controls"] },
     { id: "f2", label: "When a field receives focus, the screen reader announces only that field \u2014 not the full page from the top.", la: ["Ensure focus on form fields does not trigger a full page read by assistive technology"] },
-    { id: "f3", label: "Combobox select lists can be opened with the correct keyboard shortcut.", la: ["Ensure combobox select lists are keyboard accessible"] },
+    { id: "f3", label: "Combobox select lists can be opened and closed using keyboard shortcuts.", la: ["Ensure combobox select lists are keyboard accessible"] },
     { id: "f4", label: "When tabbing into each field, the screen reader announces label, role, required state, current value, hint/description, and error state. Any of these missing is a failure.", la: ["Ensure required form fields are announced as required by assistive technology", "Ensure form fields have visible labels that are included in their accessible name", "Ensure custom controls provide proper textual name, role, and state information"] },
     { id: "f5", label: "Confirm all form elements are navigable using the screen reader and keyboard.", la: ["Ensure custom controls are keyboard accessible"] },
   ]},
